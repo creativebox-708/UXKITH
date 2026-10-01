@@ -6,7 +6,7 @@ import { revalidatePath } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
 import { notify } from "@/lib/notify";
 
-export type WelcomeState = { error?: string };
+export type WelcomeState = { error?: string; savedAt?: number };
 
 function clean(value: FormDataEntryValue | null, max: number) {
   const text = typeof value === "string" ? value.trim() : "";
@@ -90,7 +90,7 @@ export async function updateProfile(
 
   revalidatePath("/settings");
   revalidatePath("/home");
-  return {};
+  return { savedAt: Date.now() };
 }
 
 /** Event day only: flips the "here" dot on and tells the mutual matches. */

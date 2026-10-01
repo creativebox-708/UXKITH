@@ -16,18 +16,9 @@ const LABEL = "mb-1.5 block text-[12px] font-medium tracking-wide text-muted";
 export function ProfileForm({ profile }: { profile: Profile }) {
   const [state, formAction, pending] = useActionState(updateProfile, {});
   const [hoping, setHoping] = useState(profile.hoping_to_get ?? "");
-  const [saved, setSaved] = useState(false);
-  const toast = useToast();
 
   return (
-    <form
-      action={async (formData) => {
-        setSaved(false);
-        formAction(formData);
-      }}
-      onSubmit={() => setSaved(true)}
-      className="flex flex-col gap-4"
-    >
+    <form action={formAction} className="flex flex-col gap-4">
       <div>
         <label htmlFor="headline" className={LABEL}>
           What you do
@@ -111,16 +102,16 @@ export function ProfileForm({ profile }: { profile: Profile }) {
         <button
           type="submit"
           disabled={pending}
-          onClick={() => {
-            if (!pending) window.setTimeout(() => toast("Saved.", "good"), 400);
-          }}
           className="flex h-11 items-center justify-center gap-2 rounded-xl bg-paper px-5 text-[14px] font-semibold text-ink transition-all duration-200 enabled:active:scale-[0.99] disabled:opacity-60"
         >
           {pending && <SpinnerMark className="size-4" />}
           Save changes
         </button>
-        {saved && !pending && !state.error && (
-          <span className="animate-fade text-[12.5px] text-mutual">Saved</span>
+        {/* only after the server actually confirmed the write */}
+        {state.savedAt && !pending && (
+          <span key={state.savedAt} className="animate-fade text-[12.5px] text-mutual">
+            Saved
+          </span>
         )}
       </div>
     </form>
