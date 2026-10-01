@@ -1,0 +1,7 @@
+project_id = "ypwolsbxtikuhwetzmig"
+
+[functions.notify-interest]
+verify_jwt = true
+
+[functions.notify-here]
+verify_jwt = true
