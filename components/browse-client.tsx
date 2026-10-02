@@ -87,15 +87,7 @@ export function BrowseClient({
   const [failed, setFailed] = useState(false);
   const sentinel = useRef<HTMLDivElement>(null);
   const requestId = useRef(0);
-  const firstRender = useRef(true);
 
-  // Debounce the name search so a fast typist does not fire a query per keystroke.
-  useEffect(() => {
-    const id = window.setTimeout(() => {
-      setFilters((current) => (current.search === draft ? current : { ...current, search: draft }));
-    }, 260);
-    return () => window.clearTimeout(id);
-  }, [draft]);
 
   const fetchPage = useCallback(async (offset: number, current: Filters) => {
     const id = ++requestId.current;
@@ -127,16 +119,26 @@ export function BrowseClient({
     setLoading(false);
   }, []);
 
+  // Changing a filter is what triggers a reload, not a render. Page one for the
+  // untouched filters was already rendered on the server, so nothing fetches
+  // until something here actually changes.
+  const applyFilters = useCallback(
+    (next: Filters) => {
+      setFilters(next);
+      void fetchPage(0, next);
+    },
+    [fetchPage],
+  );
+
+  // Debounce the name search so a fast typist does not fire a query per keystroke.
+  useEffect(() => {
+    if (draft === filters.search) return;
+    const id = window.setTimeout(() => applyFilters({ ...filters, search: draft }), 260);
+    return () => window.clearTimeout(id);
+  }, [draft, filters, applyFilters]);
+
   const pristine =
     filters.search === "" && filters.role === "" && filters.city === "" && filters.company === "";
-
-  useEffect(() => {
-    if (firstRender.current) {
-      firstRender.current = false;
-      if (pristine) return; // the server already gave us page one
-    }
-    void fetchPage(0, filters);
-  }, [filters, fetchPage, pristine]);
 
   useEffect(() => {
     const node = sentinel.current;
@@ -154,7 +156,7 @@ export function BrowseClient({
 
   function clearAll() {
     setDraft("");
-    setFilters(EMPTY);
+    applyFilters(EMPTY);
   }
 
   const anyFilter = !pristine;
@@ -189,19 +191,19 @@ export function BrowseClient({
             label="Role"
             value={filters.role}
             options={ROLES}
-            onChange={(role) => setFilters((c) => ({ ...c, role }))}
+            onChange={(role) => applyFilters({ ...filters, role })}
           />
           <Chip
             label="City"
             value={filters.city}
             options={cities}
-            onChange={(city) => setFilters((c) => ({ ...c, city }))}
+            onChange={(city) => applyFilters({ ...filters, city })}
           />
           <Chip
             label="Company"
             value={filters.company}
             options={companies}
-            onChange={(company) => setFilters((c) => ({ ...c, company }))}
+            onChange={(company) => applyFilters({ ...filters, company })}
           />
           {anyFilter && (
             <button
