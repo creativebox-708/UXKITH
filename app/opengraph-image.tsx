@@ -31,16 +31,22 @@ export default function OpengraphImage() {
 
         <div style={{ display: "flex", flexDirection: "column", gap: 22 }}>
           <div style={{ fontSize: 68, lineHeight: 1.08, letterSpacing: -1.6, maxWidth: 980 }}>
-            India&apos;s first Config. One day. Don&apos;t spend it walking past the people you came
-            to meet.
+            India’s first Config. One day. Don’t spend it walking past the people you came to
+            meet.
           </div>
           <div style={{ fontSize: 30, color: "#9c95a9" }}>
             Find the ones you came to meet, before the doors open.
           </div>
         </div>
 
-        <div style={{ display: "flex", fontSize: 22, color: "#6a6478" }}>
-          Bangalore · 15 October 2026 · No phone number. Ever.
+        <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+          <div style={{ display: "flex", fontSize: 22, color: "#6a6478" }}>
+            BIEC, Bengaluru · 15 October 2026 · No phone number. Ever.
+          </div>
+          {/* The share card travels further than the site, so it says this too. */}
+          <div style={{ display: "flex", fontSize: 18, color: "#5f5973" }}>
+            An independent tool by two attendees. Not affiliated with or endorsed by Figma.
+          </div>
         </div>
       </div>
     ),
