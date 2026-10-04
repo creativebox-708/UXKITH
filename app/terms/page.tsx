@@ -2,12 +2,12 @@ import Link from "next/link";
 import type { Metadata } from "next";
 
 import { BackMark } from "@/components/icons";
-import { builders } from "@/lib/builders";
+import { builderNames } from "@/lib/builders";
 import { EVENT } from "@/lib/event";
 
 export const metadata: Metadata = {
   title: "Terms and privacy",
-  description: "What EventBuddy collects, what it never collects, and how to delete it.",
+  description: "What thedesignvibe collects, what it never collects, and how to delete it.",
 };
 
 /** Shown at the top so nobody has to guess which version they agreed to. */
@@ -24,7 +24,7 @@ const SECTIONS: Section[] = [
   {
     heading: "The short version",
     bullets: [
-      "This is a free side project by two people, not a company and not a product.",
+      "This is a free side project, not a company and not a product.",
       "It is not made by, affiliated with, endorsed by or connected to Figma, the organisers of Config, or any Figma community or chapter.",
       "It is strictly professional. It is not a dating app, not a matchmaking service, and not a job board.",
       "We never ask for, store or share a phone number.",
@@ -36,7 +36,7 @@ const SECTIONS: Section[] = [
   {
     heading: "Who is behind this",
     paragraphs: [
-      `EventBuddy is built and run in their own spare time by ${builders.map((b) => b.name).join(" and ")}, two people attending the same event as you. It is a hobby project. There is no company, no team, no funding, no office and no support desk.`,
+      `thedesignvibe is built and run in spare time by ${builderNames}, who will be at the same event as you. It is a hobby project. There is no company, no team, no funding, no office and no support desk.`,
       "Nobody is paid for it, nothing is sold, there are no ads, no trackers, no analytics on your behaviour, and your information is never sold, rented, licensed or shared with advertisers or data brokers. There is no business model here because there is no business.",
       "We are not professionals operating a service. Please calibrate your expectations accordingly: it may break, it may be slow, and it may go away.",
     ],
@@ -46,7 +46,7 @@ const SECTIONS: Section[] = [
     paragraphs: [
       "Figma, Config and any related names and logos belong to their respective owners. We use the name of the event only to say which event this tool is for. We do not use their logos or brand assets, we do not speak for them, and nothing here is official.",
       "That includes the community side of it. We are not a Friends of Figma chapter, not a watch party, not a community partner and not a volunteer programme. We do not represent, organise, promote, endorse or speak for any Figma community, chapter, meetup or programme, and none of them have endorsed us.",
-      `For anything official — the agenda, tickets, the venue, who is speaking — go to ${EVENT.officialUrl}. If a rights holder would like something here changed or taken down, tell either of us on LinkedIn and we will do it promptly.`,
+      `For anything official — the agenda, tickets, the venue, who is speaking — go to ${EVENT.officialUrl}. If a rights holder would like something here changed or taken down, tell us on LinkedIn and we will do it promptly.`,
     ],
   },
   {
@@ -147,7 +147,7 @@ const SECTIONS: Section[] = [
     heading: "If something goes wrong",
     paragraphs: [
       "Every chat has Report and Block in its header. Blocking hides the two of you from each other everywhere in the app and closes the conversation immediately; the other person is not told. You can also undo an interest at any time, or dismiss someone from the list of people who tagged you.",
-      "Reports are read by hand by us, when we are able to. We are two people with day jobs, not a trust-and-safety team, and we cannot promise to see or act on anything quickly.",
+      "Reports are read by hand by us, when we are able to. This is a side project run around a day job, not a trust-and-safety team, and we cannot promise to see or act on anything quickly.",
       "If you are in danger, or something has happened that needs more than a Block button, contact venue security or the police. We are not an emergency service and we cannot help in the moment.",
     ],
   },
@@ -155,7 +155,7 @@ const SECTIONS: Section[] = [
     heading: "No promises, and limits on liability",
     paragraphs: [
       "The service is provided “as is” and “as available”, with no warranties of any kind, express or implied, including any implied warranties of merchantability, fitness for a particular purpose, accuracy or non-infringement. We do not promise it will work, stay up, be free of errors, be secure, or that anything in it is accurate.",
-      "To the fullest extent permitted by law, neither of us is liable for any indirect, incidental, special, consequential or punitive damages, or for any loss of data, profit, opportunity, goodwill or reputation, arising out of or connected with your use of the service — whether or not we were told such damages were possible.",
+      "To the fullest extent permitted by law, we are not liable for any indirect, incidental, special, consequential or punitive damages, or for any loss of data, profit, opportunity, goodwill or reputation, arising out of or connected with your use of the service — whether or not we were told such damages were possible.",
       "Where liability cannot lawfully be excluded, it is limited to one hundred rupees (₹100). You have paid us nothing, and this is a free tool given away in good faith.",
       "You agree to cover us for any claim brought against us because of your own conduct, your own content, or your own breach of these terms.",
       "Nothing here limits liability for fraud, or for anything else that cannot be limited under applicable law.",
@@ -165,7 +165,7 @@ const SECTIONS: Section[] = [
     heading: "Your rights over your information",
     paragraphs: [
       "You can see everything we hold about you in the app itself: it is your card and your messages. You can correct any of it in Settings, and you can erase all of it with Delete my account.",
-      "If you would rather not do it yourself, or you want something removed without signing in, message either of us on LinkedIn — the links are in the footer of every page — and we will deal with it. If you are unhappy with how we have handled a request, say so and we will try to put it right.",
+      "If you would rather not do it yourself, or you want something removed without signing in, message us on LinkedIn — the link is in the footer of every page — and we will deal with it. If you are unhappy with how we have handled a request, say so and we will try to put it right.",
     ],
   },
   {
@@ -242,7 +242,7 @@ export default function TermsPage() {
 
       <p className="mt-10 border-t border-line-soft pt-5 text-[12.5px] leading-relaxed text-muted-dim">
         Questions, a takedown request, or want your data gone without signing in? Message either of
-        us on LinkedIn &mdash; the links are in the footer of every page.
+        us on LinkedIn &mdash; the link is in the footer of every page.
       </p>
     </main>
   );

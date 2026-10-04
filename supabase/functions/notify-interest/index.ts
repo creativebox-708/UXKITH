@@ -11,8 +11,8 @@ import { createClient } from "jsr:@supabase/supabase-js@2";
 const SUPABASE_URL = Deno.env.get("SUPABASE_URL")!;
 const SERVICE_ROLE_KEY = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
 const RESEND_API_KEY = Deno.env.get("RESEND_API_KEY");
-const EMAIL_FROM = Deno.env.get("EMAIL_FROM") ?? "EventBuddy <onboarding@resend.dev>";
-const APP_URL = Deno.env.get("APP_URL") ?? "https://eventbuddy.vercel.app";
+const EMAIL_FROM = Deno.env.get("EMAIL_FROM") ?? "thedesignvibe <onboarding@resend.dev>";
+const APP_URL = Deno.env.get("APP_URL") ?? "https://thedesignvibe.vercel.app";
 
 const admin = createClient(SUPABASE_URL, SERVICE_ROLE_KEY, {
   auth: { persistSession: false, autoRefreshToken: false },
@@ -45,12 +45,12 @@ function template(tagger: { name: string; subtitle: string }) {
 
   return `<!doctype html>
 <html lang="en"><body style="margin:0;padding:0;background:#f6f3ee;">
-  <div style="display:none;max-height:0;overflow:hidden;opacity:0;">${name} tagged you on EventBuddy. Tag them back to open a chat.</div>
+  <div style="display:none;max-height:0;overflow:hidden;opacity:0;">${name} tagged you on thedesignvibe. Tag them back to open a chat.</div>
   <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f6f3ee;padding:32px 16px;">
     <tr><td align="center">
       <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:480px;background:#ffffff;border:1px solid #e7e2d9;border-radius:16px;overflow:hidden;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;">
         <tr><td style="padding:28px 28px 0;">
-          <p style="margin:0;font-size:11px;letter-spacing:1.6px;color:#8b8598;text-transform:uppercase;">EventBuddy &middot; Config India 2026</p>
+          <p style="margin:0;font-size:11px;letter-spacing:1.6px;color:#8b8598;text-transform:uppercase;">thedesignvibe &middot; Config India 2026</p>
           <h1 style="margin:14px 0 0;font-size:22px;line-height:1.3;color:#15131a;font-weight:600;">Someone at Config wants to meet you</h1>
         </td></tr>
         <tr><td style="padding:20px 28px 0;">
@@ -74,7 +74,7 @@ function template(tagger: { name: string; subtitle: string }) {
         </td></tr>
         <tr><td style="padding:22px 28px 28px;">
           <p style="margin:0;border-top:1px solid #eee9e1;padding-top:16px;font-size:12px;line-height:1.6;color:#9c96a6;">
-            You are getting this because you signed in to EventBuddy with LinkedIn for Config India 2026. No phone numbers are ever collected or shared. You can delete your account and all of this data from Settings.
+            You are getting this because you signed in to thedesignvibe with LinkedIn for Config India 2026. No phone numbers are ever collected or shared. You can delete your account and all of this data from Settings.
           </p>
         </td></tr>
       </table>

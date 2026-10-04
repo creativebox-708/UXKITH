@@ -1,4 +1,4 @@
-// Generated from the Eventbuddy Supabase project.
+// Generated from the Supabase project ypwolsbxtikuhwetzmig.
 // Regenerate with: npx supabase gen types typescript --project-id ypwolsbxtikuhwetzmig
 
 export type Json =

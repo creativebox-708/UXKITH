@@ -61,7 +61,7 @@ export default async function WelcomePage({
       <header className="animate-rise mb-7">
         <div className="mb-5 flex items-center gap-2">
           <span className="size-2 rounded-full bg-accent" aria-hidden />
-          <span className="text-[12px] font-semibold tracking-[0.14em] text-muted">EVENTBUDDY</span>
+          <span className="text-[12px] font-semibold tracking-[0.14em] text-muted">THEDESIGNVIBE</span>
         </div>
         <h1 className="font-display text-[1.75rem] leading-tight text-paper">
           One question, then you&rsquo;re in.

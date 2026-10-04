@@ -23,21 +23,21 @@ const displaySerif = Instrument_Serif({
 export const metadata: Metadata = {
   metadataBase: new URL(appUrl),
   title: {
-    default: "EventBuddy — Config India 2026",
-    template: "%s · EventBuddy",
+    default: "thedesignvibe — Config India 2026",
+    template: "%s · thedesignvibe",
   },
   description: "Find the ones you came to meet, before the doors open.",
-  applicationName: "EventBuddy",
+  applicationName: "thedesignvibe",
   openGraph: {
-    title: "EventBuddy — Config India 2026",
+    title: "thedesignvibe — Config India 2026",
     description: "Find the ones you came to meet, before the doors open.",
     url: appUrl,
-    siteName: "EventBuddy",
+    siteName: "thedesignvibe",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "EventBuddy — Config India 2026",
+    title: "thedesignvibe — Config India 2026",
     description: "Find the ones you came to meet, before the doors open.",
   },
   robots: { index: true, follow: true },

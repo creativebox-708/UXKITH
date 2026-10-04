@@ -20,6 +20,8 @@ const PUBLIC_PREFIXES = [
 
 function isPublicPath(pathname: string) {
   if (PUBLIC_EXACT.has(pathname)) return true;
+  // local visual-check scaffolding; its layout 404s outside development too
+  if (process.env.NODE_ENV === "development" && pathname.startsWith("/preview-check")) return true;
   return PUBLIC_PREFIXES.some(
     (prefix) => pathname === prefix || pathname.startsWith(`${prefix}/`),
   );

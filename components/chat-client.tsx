@@ -400,7 +400,7 @@ export function ChatClient({
             ) : (
               <>
                 <p className="text-[13px] leading-relaxed text-muted">
-                  You two disappear from each other everywhere in EventBuddy, and this chat closes.
+                  You two disappear from each other everywhere in thedesignvibe, and this chat closes.
                   They are not told. You can&rsquo;t undo this in the app.
                 </p>
                 <button

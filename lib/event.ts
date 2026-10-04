@@ -12,6 +12,8 @@ export const EVENT = {
   dateLabel: "15 October 2026",
   city: "Bengaluru, India",
   venue: "BIEC, Tumkur Road",
+  /** For tight one-line placements like the landing page. */
+  venueShort: "BIEC, Bengaluru",
   format: "In person & virtual",
   /** The authoritative source. Linking out is what keeps us clearly separate from it. */
   officialUrl: "https://config.figma.com/india/",
