@@ -37,7 +37,7 @@ export function SignInForm() {
       {/* The input itself is the visible box. A <label> wrapping the Terms link
           would swallow taps, because an anchor is interactive content and a
           label does not forward activation through it. */}
-      <div className="flex items-start gap-3 text-[13px] leading-snug text-muted">
+      <div className="flex items-start justify-center gap-3 text-left text-[13px] leading-snug text-muted">
         <span className={`relative mt-px inline-flex shrink-0 ${agreed ? "animate-pop" : ""}`}>
           <input
             id="agree-terms"
