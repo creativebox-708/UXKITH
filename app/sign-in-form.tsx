@@ -85,7 +85,17 @@ export function SignInForm() {
         {busy ? "Taking you to LinkedIn…" : "Continue with LinkedIn"}
       </button>
 
-      <p className="text-center text-[12px] tracking-wide text-muted-dim">No phone number. Ever.</p>
+      {/* Three promises, each doing a job: what we never take, what this is
+          for, and what it is not. The emoji are decoration, so they are hidden
+          from screen readers and the sentences carry the meaning. */}
+      <div className="text-center text-balance">
+        <p className="text-[12px] tracking-wide text-muted">
+          <span aria-hidden>🔒 </span>No phone number. Ever.
+        </p>
+        <p className="mt-1 text-[11.5px] leading-snug text-muted-dim">
+          <span aria-hidden>💼 </span>Professional only. Not a dating app, not a job board.
+        </p>
+      </div>
     </div>
   );
 }

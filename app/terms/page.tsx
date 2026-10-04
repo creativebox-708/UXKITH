@@ -17,6 +17,7 @@ type Section = {
   heading: string;
   paragraphs?: string[];
   bullets?: string[];
+  afterBullets?: string[];
 };
 
 const SECTIONS: Section[] = [
@@ -24,9 +25,11 @@ const SECTIONS: Section[] = [
     heading: "The short version",
     bullets: [
       "This is a free side project by two people, not a company and not a product.",
-      "It is not made by, affiliated with, endorsed by or connected to Figma or the organisers of Config in any way.",
+      "It is not made by, affiliated with, endorsed by or connected to Figma, the organisers of Config, or any Figma community or chapter.",
+      "It is strictly professional. It is not a dating app, not a matchmaking service, and not a job board.",
       "We never ask for, store or share a phone number.",
-      "An “Interested to meet” is a signal, not an obligation, and meeting anyone is entirely your own decision and your own risk.",
+      "An “Interested to meet” is a signal, not an obligation. Meeting anyone is your own decision, taken entirely at your own risk.",
+      "Harassment of any kind gets you removed. Write to people the way you would speak to them standing in the same room, because shortly you might be.",
       "You can delete everything about yourself in two taps, and the whole thing is switched off shortly after the event anyway.",
     ],
   },
@@ -39,10 +42,20 @@ const SECTIONS: Section[] = [
     ],
   },
   {
-    heading: "Not affiliated with Figma",
+    heading: "Not affiliated with Figma, or with any Figma community",
     paragraphs: [
       "Figma, Config and any related names and logos belong to their respective owners. We use the name of the event only to say which event this tool is for. We do not use their logos or brand assets, we do not speak for them, and nothing here is official.",
+      "That includes the community side of it. We are not a Friends of Figma chapter, not a watch party, not a community partner and not a volunteer programme. We do not represent, organise, promote, endorse or speak for any Figma community, chapter, meetup or programme, and none of them have endorsed us.",
       `For anything official — the agenda, tickets, the venue, who is speaking — go to ${EVENT.officialUrl}. If a rights holder would like something here changed or taken down, tell either of us on LinkedIn and we will do it promptly.`,
+    ],
+  },
+  {
+    heading: "What this is not",
+    paragraphs: [
+      "This is a tool for working out who you want to find in a crowd of a few thousand people, and for saying hello first. That is the whole of it.",
+      "It is not a dating or matchmaking app. There is no romance here. Do not use it to ask anyone out, to comment on how anyone looks, or to pursue anything other than a professional conversation. If that is what you came for, you are in the wrong place, and you will be removed.",
+      "It is not a job board or a recruitment tool. We do not host, promote or facilitate job postings, hiring, headhunting, or paid promotion of any kind. Two people who both wanted to meet and end up talking about work is exactly the point; cold recruiting, pitching openings at strangers, or working through the list as a candidate pipeline is not.",
+      "It is not a directory, a lead list, an advertising channel or a mailing list, and it must not be treated as one.",
     ],
   },
   {
@@ -55,7 +68,8 @@ const SECTIONS: Section[] = [
   {
     heading: "What we take from LinkedIn",
     paragraphs: [
-      "Signing in with LinkedIn is the only way in. Through LinkedIn's standard OpenID Connect sign-in, we receive your name, your profile photo, your email address and an identifier that tells us it is the same you next time. That is the entire list — LinkedIn does not give us your connections, your messages, your employment history or your activity, and we do not ask for them.",
+      "Signing in with LinkedIn is the only way in, and it is there for one reason: it ties every card to a real, professional identity that the person already maintains in public. It is not there so anyone can mine it.",
+      "Through LinkedIn's standard OpenID Connect sign-in we receive your name, your profile photo, your email address and an identifier that tells us it is the same you next time. That is the entire list — LinkedIn does not give us your connections, your messages, your employment history or your activity, and we do not ask for them.",
       "Your email address is held by our authentication provider and is used for one thing: the notifications described below. It is never shown to another attendee and never shared with anyone.",
       "Your name and photo appear on your card so that people can recognise you on the day.",
     ],
@@ -70,7 +84,7 @@ const SECTIONS: Section[] = [
   {
     heading: "What we never collect",
     bullets: [
-      "Phone numbers. There is no field for one anywhere in the app.",
+      "Phone numbers. There is no field for one anywhere in the app, and there never will be.",
       "Payment details of any kind.",
       "Your location, at any level of precision. No GPS, no Bluetooth, no check-ins.",
       "Your contacts, your calendar or anything else on your device.",
@@ -94,31 +108,47 @@ const SECTIONS: Section[] = [
     ],
   },
   {
-    heading: "Meeting people is your decision",
+    heading: "Meeting people is your decision, and your risk",
     paragraphs: [
       "This is the part that matters most, so it is worth saying slowly. We introduce nothing and vouch for nobody. We do not verify identities, we do not run background checks, we do not vet, screen, moderate or supervise anyone, and we are not a party to anything that happens between you and another person.",
-      "Nobody owes anybody a meeting, a reply, or their time. Ignoring an interest is a perfectly good answer.",
-      "If you do choose to meet someone, that decision and everything that follows from it is yours alone. Meet in the public areas of the venue, tell somebody where you are going, and trust your instincts. To the fullest extent the law allows, we accept no responsibility or liability for any meeting, conversation, conduct, loss, injury or harm arising from your use of this tool.",
+      "Nobody owes anybody a meeting, a reply, or their time. Ignoring an interest is a perfectly good answer, and so is changing your mind at any point.",
+      "If you do choose to meet someone, that decision and everything that follows from it is yours alone. Meet in the public areas of the venue, in daylight, with people around. Tell somebody where you are going. Do not go anywhere private with someone you have just met. Trust your instincts, and leave the moment you want to.",
+      "We are not responsible for anything that happens to you, or because of you, through using this tool — before, during or after the event, online or in person. To the fullest extent the law allows we accept no responsibility or liability for any meeting, message, conversation, conduct, loss, injury, distress or harm arising from it. You use it entirely at your own risk.",
+    ],
+  },
+  {
+    heading: "Chat responsibly",
+    paragraphs: [
+      "There is a real person at the other end. They can see your name, your face and your LinkedIn, and within a fortnight the two of you may be standing in the same room. Write accordingly.",
+      "Keep it professional and keep it short. A first message that would be strange to say out loud at a conference is strange here too. If somebody stops replying, that is their answer; let it go.",
+      "There is no tolerance for harassment of any kind. That includes sexual harassment and unwanted sexual or romantic attention of every sort — what is often called eve-teasing — remarks about someone's body, face or clothes, messaging on after someone has gone quiet, dismissed you or blocked you, and following or approaching anyone in person who has not agreed to meet you.",
+      "Any of that and your access goes, without warning and without explanation. Where it looks like a crime, we will cooperate fully with venue security and the police, and we will hand over what we hold if they lawfully ask for it.",
     ],
   },
   {
     heading: "How you must behave",
     paragraphs: ["Use it to find people you would like to meet. Do not use it to:"],
     bullets: [
-      "harass, threaten, stalk, abuse or intimidate anyone, or contact someone who has made it clear they are not interested",
-      "send spam, advertising, recruitment blasts or chain messages",
-      "impersonate another person, or misrepresent who you are or who you work for",
+      "harass, threaten, stalk, intimidate or abuse anyone",
+      "make romantic or sexual advances, or comment on how anyone looks",
+      "keep contacting someone who has stopped replying, dismissed you or blocked you",
+      "recruit, headhunt, pitch job openings, or advertise or sell anything",
+      "send spam, chain messages, or the same message to lots of people",
+      "impersonate anyone, or misrepresent who you are or who you work for",
       "scrape, crawl, bulk-export or republish anyone's details, or build a mailing list from them",
       "attempt to break, overload, probe or gain unauthorised access to any part of the service",
       "post anything unlawful, hateful, sexually explicit or otherwise obviously out of place at a professional event",
+    ],
+    afterBullets: [
+      "We may remove anyone's access at any time, for any reason, without notice or explanation, and we do not owe anyone an appeal.",
     ],
   },
   {
     heading: "If something goes wrong",
     paragraphs: [
       "Every chat has Report and Block in its header. Blocking hides the two of you from each other everywhere in the app and closes the conversation immediately; the other person is not told. You can also undo an interest at any time, or dismiss someone from the list of people who tagged you.",
-      "Reports are read by hand by us, when we are able to, and we may remove anyone's access at any time for any reason, without notice or explanation. We are two people with day jobs, not a trust-and-safety team, and we cannot promise to see or act on anything quickly.",
-      "If you are in danger, contact venue security or the police. We are not an emergency service and cannot help.",
+      "Reports are read by hand by us, when we are able to. We are two people with day jobs, not a trust-and-safety team, and we cannot promise to see or act on anything quickly.",
+      "If you are in danger, or something has happened that needs more than a Block button, contact venue security or the police. We are not an emergency service and we cannot help in the moment.",
     ],
   },
   {
@@ -199,6 +229,12 @@ export default function TermsPage() {
                   ))}
                 </ul>
               )}
+
+              {section.afterBullets?.map((paragraph, i) => (
+                <p key={i} className="text-[14px] leading-relaxed text-muted">
+                  {paragraph}
+                </p>
+              ))}
             </div>
           </section>
         ))}
