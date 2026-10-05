@@ -1,7 +1,8 @@
 "use client";
 
 import { Avatar } from "@/components/avatar";
-import { InterestButton, InterestCount, MutualBadge } from "@/components/interest-button";
+import { InterestButton, InterestCount } from "@/components/interest-button";
+import { StatusBadge } from "@/components/status-badge";
 import { LinkedInMark } from "@/components/icons";
 import type { ProfileCard as Card } from "@/lib/types";
 
@@ -52,7 +53,7 @@ export function ProfileCard({
       </div>
 
       <div className="mt-2.5 empty:hidden">
-        <MutualBadge card={card} />
+        <StatusBadge card={card} />
       </div>
 
       <h3 className="mt-1 text-[13.5px] leading-tight font-semibold tracking-[-0.01em] text-paper clamp-2">

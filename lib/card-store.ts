@@ -19,7 +19,11 @@ export type CardState = {
 const overrides = new Map<string, CardState>();
 const listeners = new Set<() => void>();
 
+/** Bumped on every change, so a list can take one snapshot for many cards. */
+let version = 0;
+
 function emit() {
+  version += 1;
   for (const listener of listeners) listener();
 }
 
@@ -55,4 +59,18 @@ export function useCardState(card: ProfileCard): CardState {
     () => undefined,
   );
   return override ?? fromCard(card);
+}
+
+/**
+ * States for a whole list in a single subscription. Reading each card with
+ * useCardState would mean a hook per row, which breaks as soon as the list
+ * length changes.
+ */
+export function useCardStates(cards: ProfileCard[]): CardState[] {
+  useSyncExternalStore(
+    subscribe,
+    () => version,
+    () => 0,
+  );
+  return cards.map((card) => overrides.get(card.id) ?? fromCard(card));
 }

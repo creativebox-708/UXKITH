@@ -18,6 +18,8 @@ export function InterestButton({ card, size = "sm" }: { card: ProfileCard; size?
   const openChat = useOpenChat();
 
   const mutual = Boolean(state.matchId && state.matchActive);
+  // They invited us first, so our tap is an acceptance rather than a new invite.
+  const invitedYou = card.they_are_interested && !state.interested;
   const height = size === "md" ? "h-10 text-[13px]" : "h-8 text-[11.5px]";
 
   if (mutual) {
@@ -57,7 +59,12 @@ export function InterestButton({ card, size = "sm" }: { card: ProfileCard; size?
     setCardState(card.id, next);
     setPopping(true);
     window.setTimeout(() => setPopping(false), 420);
-    if (next.interested) toast("They'll be notified.", "good");
+    if (next.interested) {
+      toast(
+        invitedYou ? "Accepted. Your chat is open." : "Invite sent. They'll be notified.",
+        "good",
+      );
+    }
 
     startTransition(async () => {
       const result = await toggleInterest(card.id, next.interested);
@@ -87,7 +94,7 @@ export function InterestButton({ card, size = "sm" }: { card: ProfileCard; size?
       } ${popping ? "animate-pop" : ""} ${pending ? "opacity-85" : ""}`}
     >
       {state.interested && <CheckMark className="size-[13px]" />}
-      {state.interested ? "Interested" : "Interested to meet"}
+      {state.interested ? "Invite sent" : invitedYou ? "Accept invite" : "Interested to meet"}
     </button>
   );
 }

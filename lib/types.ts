@@ -60,7 +60,7 @@ export function isMutual(card: Pick<ProfileCard, "match_id" | "match_active">) {
 type RawNotification = Database["public"]["CompositeTypes"]["notification_item"];
 
 export type AppNotification = {
-  kind: "requested" | "accepted";
+  kind: "requested" | "accepted" | "connected";
   actorId: string;
   actorName: string;
   actorAvatar: string | null;
@@ -74,7 +74,12 @@ export function toNotifications(rows: RawNotification[] | null): AppNotification
   return (rows ?? [])
     .filter((r) => r.actor_id && r.happened_at)
     .map((r) => ({
-      kind: r.kind === "accepted" ? ("accepted" as const) : ("requested" as const),
+      kind:
+        r.kind === "accepted"
+          ? ("accepted" as const)
+          : r.kind === "connected"
+            ? ("connected" as const)
+            : ("requested" as const),
       actorId: r.actor_id!,
       actorName: r.actor_name ?? "Config attendee",
       actorAvatar: r.actor_avatar,
@@ -84,3 +89,24 @@ export function toNotifications(rows: RawNotification[] | null): AppNotification
       isNew: r.is_new ?? false,
     }));
 }
+
+/**
+ * Where a connection stands, from the viewer's side. Derived entirely from the
+ * card: no status column exists, because a decline is a private `dismissals`
+ * row that the sender is never shown. An invite they declined therefore stays
+ * "pending" for the sender, which is deliberate.
+ */
+export type ConnectionStatus = "accepted" | "pending" | "invited_you" | "none";
+
+export function connectionStatus(card: ProfileCard): ConnectionStatus {
+  if (card.match_id && card.match_active) return "accepted";
+  if (card.i_am_interested) return "pending";
+  if (card.they_are_interested) return "invited_you";
+  return "none";
+}
+
+export const STATUS_LABEL: Record<Exclude<ConnectionStatus, "none">, string> = {
+  accepted: "Accepted",
+  pending: "Pending",
+  invited_you: "Invited you",
+};

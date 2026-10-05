@@ -64,9 +64,11 @@ export function NotificationsBell({ initial }: { initial: AppNotification[] }) {
         if (!n.isNew) continue;
         toast(
           n.kind === "accepted"
-            ? `${n.actorName} accepted — your chat is open.`
-            : `${n.actorName} wants to meet you.`,
-          n.kind === "accepted" ? "good" : "neutral",
+            ? `${n.actorName} accepted your invite — you're connected.`
+            : n.kind === "connected"
+              ? `You're connected with ${n.actorName}.`
+              : `${n.actorName} wants to meet you.`,
+          n.kind === "requested" ? "neutral" : "good",
         );
       }
     };
@@ -133,9 +135,9 @@ export function NotificationsBell({ initial }: { initial: AppNotification[] }) {
                   <li key={`${n.kind}:${n.actorId}`}>
                     <button
                       type="button"
-                      disabled={n.kind !== "accepted" || !n.matchId || !openChat}
+                      disabled={!n.matchId || !openChat}
                       onClick={() => {
-                        if (n.kind === "accepted" && n.matchId && openChat) {
+                        if (n.matchId && openChat) {
                           setOpen(false);
                           openChat(n.matchId);
                         }
@@ -145,11 +147,13 @@ export function NotificationsBell({ initial }: { initial: AppNotification[] }) {
                       <Avatar name={n.actorName} src={n.actorAvatar} size={30} />
                       <span className="min-w-0 flex-1">
                         <span className="block text-[12.5px] leading-snug text-muted">
-                          <span aria-hidden>{n.kind === "accepted" ? "🤝 " : "👋 "}</span>
+                          <span aria-hidden>{n.kind === "requested" ? "👋 " : "🤝 "}</span>
                           <span className="font-semibold text-paper">{n.actorName}</span>{" "}
                           {n.kind === "accepted"
-                            ? "accepted — your chat is open."
-                            : "wants to meet you."}
+                            ? "accepted your invite — you're connected."
+                            : n.kind === "connected"
+                              ? "— you're connected. Open the chat."
+                              : "wants to meet you."}
                         </span>
                         <span className="mt-0.5 block text-[10.5px] text-muted-dim">
                           {ago(n.happenedAt)}
