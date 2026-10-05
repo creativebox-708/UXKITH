@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
 
-export const alt = "thedesignvibe — find the ones you came to meet, before the doors open.";
+export const alt = "UXKITH — find the ones you came to meet, before the doors open.";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -24,7 +24,7 @@ export default function OpengraphImage() {
       >
         <div style={{ display: "flex", alignItems: "center", gap: 14, fontSize: 26, letterSpacing: 1 }}>
           <div style={{ width: 13, height: 13, borderRadius: 999, background: "#ff5c38" }} />
-          <span style={{ color: "#9c95a9" }}>THEDESIGNVIBE</span>
+          <span style={{ color: "#9c95a9" }}>UXKITH</span>
           <span style={{ color: "#3a3646" }}>/</span>
           <span style={{ color: "#9c95a9" }}>CONFIG INDIA 2026</span>
         </div>

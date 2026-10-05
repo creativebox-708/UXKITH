@@ -23,21 +23,21 @@ const displaySerif = Instrument_Serif({
 export const metadata: Metadata = {
   metadataBase: new URL(appUrl),
   title: {
-    default: "thedesignvibe — Config India 2026",
-    template: "%s · thedesignvibe",
+    default: "UXKITH — Config India 2026",
+    template: "%s · UXKITH",
   },
   description: "Find the ones you came to meet, before the doors open.",
-  applicationName: "thedesignvibe",
+  applicationName: "UXKITH",
   openGraph: {
-    title: "thedesignvibe — Config India 2026",
+    title: "UXKITH — Config India 2026",
     description: "Find the ones you came to meet, before the doors open.",
     url: appUrl,
-    siteName: "thedesignvibe",
+    siteName: "UXKITH",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "thedesignvibe — Config India 2026",
+    title: "UXKITH — Config India 2026",
     description: "Find the ones you came to meet, before the doors open.",
   },
   robots: { index: true, follow: true },

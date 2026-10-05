@@ -27,7 +27,7 @@ export function Wordmark({
       <span
         className={`text-[12.5px] font-semibold tracking-[0.12em] ${muted ? "text-muted" : "text-paper"}`}
       >
-        THEDESIGNVIBE
+        UXKITH
       </span>
       <BetaBadge />
     </>
@@ -36,7 +36,7 @@ export function Wordmark({
   const classes = `flex shrink-0 items-center gap-2 ${className}`;
 
   return href ? (
-    <Link href={href} className={classes} aria-label="thedesignvibe, beta">
+    <Link href={href} className={classes} aria-label="UXKITH, beta">
       {inner}
     </Link>
   ) : (

@@ -8,7 +8,7 @@ import { EVENT } from "@/lib/event";
 
 export const metadata: Metadata = {
   title: "Terms and privacy",
-  description: "What thedesignvibe collects, what it never collects, and how to delete it.",
+  description: "What UXKITH collects, what it never collects, and how to delete it.",
 };
 
 /** Shown at the top so nobody has to guess which version they agreed to. */
@@ -37,7 +37,7 @@ const SECTIONS: Section[] = [
   {
     heading: "Who is behind this",
     paragraphs: [
-      `thedesignvibe is built and run in spare time by ${builderNames}, who will be at the same event as you. It is a hobby project. There is no company, no team, no funding, no office and no support desk.`,
+      `UXKITH is built and run in spare time by ${builderNames}, who will be at the same event as you. It is a hobby project. There is no company, no team, no funding, no office and no support desk.`,
       "Nobody is paid for it, nothing is sold, there are no ads, no trackers, no analytics on your behaviour, and your information is never sold, rented, licensed or shared with advertisers or data brokers. There is no business model here because there is no business.",
       "We are not professionals operating a service. Please calibrate your expectations accordingly: it may break, it may be slow, and it may go away.",
     ],

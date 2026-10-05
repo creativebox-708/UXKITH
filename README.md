@@ -1,4 +1,4 @@
-# thedesignvibe
+# UXKITH
 
 A mobile-first web app for Config India 2026 (Bangalore, 15 October). Invitees sign in with
 LinkedIn, find the people they actually came to meet, tap **Interested to meet**, and get a chat
@@ -133,7 +133,7 @@ not set — so email can never fail a tap.
 Set their secrets once:
 
 ```bash
-npx supabase secrets set RESEND_API_KEY=re_xxx EMAIL_FROM="thedesignvibe <hello@yourdomain.com>" APP_URL=https://your-domain.com
+npx supabase secrets set RESEND_API_KEY=re_xxx EMAIL_FROM="UXKITH <hello@yourdomain.com>" APP_URL=https://your-domain.com
 ```
 
 Until you verify a domain in Resend, leave `EMAIL_FROM` unset and it falls back to Resend's
