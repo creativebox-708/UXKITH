@@ -5,11 +5,13 @@ import { useCallback, useEffect, useState, useTransition } from "react";
 
 import { ChatDockProvider } from "@/components/chat-dock";
 import { loadMyLists, MyListModal, type MyLists, type Tab } from "@/components/my-list-modal";
+import { NotificationsBell } from "@/components/notifications";
 import { HereDot } from "@/components/profile-card";
 import { Wordmark } from "@/components/wordmark";
 import { useToast } from "@/components/toast";
 import { setHere } from "@/lib/actions/profile";
 import { createClient } from "@/lib/supabase/client";
+import type { AppNotification } from "@/lib/types";
 
 const nf = new Intl.NumberFormat("en-IN");
 
@@ -30,6 +32,7 @@ export function AppShell({
   counts,
   eventDay,
   isHere,
+  notifications,
   showInboundBanner = false,
   children,
 }: {
@@ -37,6 +40,7 @@ export function AppShell({
   counts: ShellCounts;
   eventDay: boolean;
   isHere: boolean;
+  notifications: AppNotification[];
   showInboundBanner?: boolean;
   children: React.ReactNode;
 }) {
@@ -132,6 +136,8 @@ export function AppShell({
                   I&rsquo;m here <span aria-hidden>&#128075;</span>
                 </button>
               )}
+
+              <NotificationsBell initial={notifications} />
 
               <button
                 type="button"

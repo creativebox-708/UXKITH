@@ -100,6 +100,7 @@ export type Database = {
           is_here: boolean;
           linkedin_sub: string | null;
           linkedin_url: string | null;
+          notifications_seen_at: string | null;
           onboarded_at: string | null;
           updated_at: string;
         };
@@ -118,6 +119,7 @@ export type Database = {
           is_here?: boolean;
           linkedin_sub?: string | null;
           linkedin_url?: string | null;
+          notifications_seen_at?: string | null;
           onboarded_at?: string | null;
           updated_at?: string;
         };
@@ -136,6 +138,7 @@ export type Database = {
           is_here?: boolean;
           linkedin_sub?: string | null;
           linkedin_url?: string | null;
+          notifications_seen_at?: string | null;
           onboarded_at?: string | null;
           updated_at?: string;
         };
@@ -203,6 +206,11 @@ export type Database = {
         Args: { p_match_id: string };
         Returns: Database["public"]["CompositeTypes"]["profile_card"][];
       };
+      mark_notifications_seen: { Args: never; Returns: undefined };
+      notifications: {
+        Args: { p_limit?: number };
+        Returns: Database["public"]["CompositeTypes"]["notification_item"][];
+      };
       my_inbound: {
         Args: never;
         Returns: Database["public"]["CompositeTypes"]["profile_card"][];
@@ -218,6 +226,16 @@ export type Database = {
     };
     Enums: { [_ in never]: never };
     CompositeTypes: {
+      notification_item: {
+        kind: string | null;
+        actor_id: string | null;
+        actor_name: string | null;
+        actor_avatar: string | null;
+        actor_headline: string | null;
+        match_id: string | null;
+        happened_at: string | null;
+        is_new: boolean | null;
+      };
       profile_card: {
         id: string | null;
         full_name: string | null;

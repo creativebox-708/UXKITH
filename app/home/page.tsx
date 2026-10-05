@@ -7,7 +7,7 @@ import { EmptyState } from "@/components/empty-state";
 import { requireAttendee } from "@/lib/auth";
 import { eventDayEnabled } from "@/lib/flags";
 import { createClient } from "@/lib/supabase/server";
-import { toCards } from "@/lib/types";
+import { toCards, toNotifications } from "@/lib/types";
 
 export const metadata: Metadata = { title: "Home" };
 export const dynamic = "force-dynamic";
@@ -16,11 +16,12 @@ export default async function HomePage() {
   const { user, profile } = await requireAttendee();
   const supabase = await createClient();
 
-  const [attendees, inbound, myList, suggested] = await Promise.all([
+  const [attendees, inbound, myList, suggested, notes] = await Promise.all([
     supabase.rpc("attendee_count"),
     supabase.rpc("inbound_count"),
     supabase.from("interests").select("*", { count: "exact", head: true }).eq("from_user", user.id),
     supabase.rpc("suggested_profiles", { p_limit: 8 }),
+    supabase.rpc("notifications", { p_limit: 20 }),
   ]);
 
   const cards = toCards(suggested.data);
@@ -34,6 +35,7 @@ export default async function HomePage() {
         inbound: inbound.data ?? 0,
         myList: myList.count ?? 0,
       }}
+      notifications={toNotifications(notes.data)}
       eventDay={eventDayEnabled}
       isHere={profile.is_here}
       showInboundBanner

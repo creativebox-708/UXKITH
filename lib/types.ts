@@ -56,3 +56,31 @@ export function toCards(rows: RawCard[] | null): ProfileCard[] {
 export function isMutual(card: Pick<ProfileCard, "match_id" | "match_active">) {
   return Boolean(card.match_id && card.match_active);
 }
+
+type RawNotification = Database["public"]["CompositeTypes"]["notification_item"];
+
+export type AppNotification = {
+  kind: "requested" | "accepted";
+  actorId: string;
+  actorName: string;
+  actorAvatar: string | null;
+  actorHeadline: string | null;
+  matchId: string | null;
+  happenedAt: string;
+  isNew: boolean;
+};
+
+export function toNotifications(rows: RawNotification[] | null): AppNotification[] {
+  return (rows ?? [])
+    .filter((r) => r.actor_id && r.happened_at)
+    .map((r) => ({
+      kind: r.kind === "accepted" ? ("accepted" as const) : ("requested" as const),
+      actorId: r.actor_id!,
+      actorName: r.actor_name ?? "Config attendee",
+      actorAvatar: r.actor_avatar,
+      actorHeadline: r.actor_headline,
+      matchId: r.match_id,
+      happenedAt: r.happened_at!,
+      isNew: r.is_new ?? false,
+    }));
+}
