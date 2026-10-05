@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 };
 
 /** Shown at the top so nobody has to guess which version they agreed to. */
-const LAST_UPDATED = "4 October 2026";
+const LAST_UPDATED = "6 October 2026";
 
 type Section = {
   heading: string;
@@ -29,7 +29,7 @@ const SECTIONS: Section[] = [
       "It is not made by, affiliated with, endorsed by or connected to Figma, the organisers of Config, or any Figma community or chapter.",
       "It is strictly professional. It is not a dating app, not a matchmaking service, and not a job board.",
       "We never ask for, store or share a phone number.",
-      "An “Interested to meet” is a signal, not an obligation. Meeting anyone is your own decision, taken entirely at your own risk.",
+      "An invite is a signal, not an obligation. Nobody has to accept one, declining is silent, and meeting anyone is your own decision, taken entirely at your own risk.",
       "Harassment of any kind gets you removed. Write to people the way you would speak to them standing in the same room, because shortly you might be.",
       "You can delete everything about yourself in two taps, and the whole thing is switched off shortly after the event anyway.",
     ],
@@ -78,7 +78,8 @@ const SECTIONS: Section[] = [
   {
     heading: "What you add yourself",
     paragraphs: [
-      "What you do, your company, your city, a link to your LinkedIn profile, and one line about what you are hoping to get out of the event. All of it is optional, all of it is editable in Settings, and all of it is visible to other signed-in invitees.",
+      "What you do, your company, your city, a link to your LinkedIn profile, and one line about what you are hoping to get out of the event. All of it is editable in Settings, and all of it is visible to other signed-in invitees.",
+      "The link to your LinkedIn profile is required to be listed. Signing in does not hand it over, so you type it in yourself, and it is what lets someone whose invite you accepted find you again afterwards. Everything else on your card is optional.",
       "Put nothing on your card you would not say out loud in a hallway. You are responsible for what you choose to publish about yourself.",
     ],
   },
@@ -93,17 +94,26 @@ const SECTIONS: Section[] = [
     ],
   },
   {
+    heading: "How an invite works",
+    paragraphs: [
+      "Tapping “Interested to meet” on somebody's card sends them an invite. They are told, once, by email. That is all it does — it does not open a conversation and it does not oblige either of you to anything.",
+      "They can accept it, leave it, or decline it. Accepting means they tapped the same button back: you are then connected, the chat opens for the two of you, and you both hear about it. Leaving it alone is a perfectly good answer.",
+      "Declining is silent. The invite leaves their list and they are not asked again; the person who sent it is never told they were declined, and sees nothing change. We do this deliberately, so that saying no costs nothing.",
+      "Either of you can undo it afterwards. Withdrawing an invite, or undoing an acceptance, closes the chat to new messages and is equally silent. What was already said stays readable to the two of you until an account is deleted.",
+    ],
+  },
+  {
     heading: "Who can see what",
     paragraphs: [
       "Other signed-in invitees can see your card, and the number of people interested in meeting you. They cannot see who those people are.",
-      "You can see who tagged you. Tapping “Interested to meet” sends that person one email saying someone wants to meet them, with your name and headline. Undoing it is silent — no second email, no notification, and they are not told.",
-      "Chat opens only when two people have each tapped the button. Nobody outside that pair can read those messages, and nobody outside it can send into the conversation.",
+      "You can see who has invited you. Tapping “Interested to meet” sends that person an invite and one email, with your name and headline. Withdrawing it is silent — no second email, no notification, and they are not told.",
+      "Chat opens only once an invite has been accepted — that is, when both of you have tapped the button. Nobody outside that pair can read those messages, and nobody outside it can send into the conversation.",
     ],
   },
   {
     heading: "How long we keep it, and deletion",
     paragraphs: [
-      "Settings → Delete my account removes your profile, every interest in both directions, your matches and your messages. It happens immediately and it cannot be undone.",
+      "Settings → Delete my account removes your profile, every invite in both directions, your connections and your messages. It happens immediately and it cannot be undone.",
       "The service is shut down and its data deleted shortly after the event. This is a tool for one day, not a database we are building.",
       "Messages you have sent sit in the other person's conversation as well as yours. Deleting your account removes them.",
     ],
@@ -112,7 +122,7 @@ const SECTIONS: Section[] = [
     heading: "Meeting people is your decision, and your risk",
     paragraphs: [
       "This is the part that matters most, so it is worth saying slowly. We introduce nothing and vouch for nobody. We do not verify identities, we do not run background checks, we do not vet, screen, moderate or supervise anyone, and we are not a party to anything that happens between you and another person.",
-      "Nobody owes anybody a meeting, a reply, or their time. Ignoring an interest is a perfectly good answer, and so is changing your mind at any point.",
+      "Nobody owes anybody a meeting, a reply, or their time. Ignoring an invite is a perfectly good answer, declining one is another, and so is changing your mind at any point after accepting.",
       "If you do choose to meet someone, that decision and everything that follows from it is yours alone. Meet in the public areas of the venue, in daylight, with people around. Tell somebody where you are going. Do not go anywhere private with someone you have just met. Trust your instincts, and leave the moment you want to.",
       "We are not responsible for anything that happens to you, or because of you, through using this tool — before, during or after the event, online or in person. To the fullest extent the law allows we accept no responsibility or liability for any meeting, message, conversation, conduct, loss, injury, distress or harm arising from it. You use it entirely at your own risk.",
     ],
@@ -122,7 +132,7 @@ const SECTIONS: Section[] = [
     paragraphs: [
       "There is a real person at the other end. They can see your name, your face and your LinkedIn, and within a fortnight the two of you may be standing in the same room. Write accordingly.",
       "Keep it professional and keep it short. A first message that would be strange to say out loud at a conference is strange here too. If somebody stops replying, that is their answer; let it go.",
-      "There is no tolerance for harassment of any kind. That includes sexual harassment and unwanted sexual or romantic attention of every sort — what is often called eve-teasing — remarks about someone's body, face or clothes, messaging on after someone has gone quiet, dismissed you or blocked you, and following or approaching anyone in person who has not agreed to meet you.",
+      "There is no tolerance for harassment of any kind. That includes sexual harassment and unwanted sexual or romantic attention of every sort — what is often called eve-teasing — remarks about someone's body, face or clothes, messaging on after someone has gone quiet, declined you or blocked you, and following or approaching anyone in person who has not agreed to meet you.",
       "Any of that and your access goes, without warning and without explanation. Where it looks like a crime, we will cooperate fully with venue security and the police, and we will hand over what we hold if they lawfully ask for it.",
     ],
   },
@@ -132,7 +142,7 @@ const SECTIONS: Section[] = [
     bullets: [
       "harass, threaten, stalk, intimidate or abuse anyone",
       "make romantic or sexual advances, or comment on how anyone looks",
-      "keep contacting someone who has stopped replying, dismissed you or blocked you",
+      "keep contacting someone who has stopped replying, declined your invite or blocked you",
       "recruit, headhunt, pitch job openings, or advertise or sell anything",
       "send spam, chain messages, or the same message to lots of people",
       "impersonate anyone, or misrepresent who you are or who you work for",
@@ -147,7 +157,7 @@ const SECTIONS: Section[] = [
   {
     heading: "If something goes wrong",
     paragraphs: [
-      "Every chat has Report and Block in its header. Blocking hides the two of you from each other everywhere in the app and closes the conversation immediately; the other person is not told. You can also undo an interest at any time, or dismiss someone from the list of people who tagged you.",
+      "Every chat has Report and Block in its header. Blocking hides the two of you from each other everywhere in the app and closes the conversation immediately; the other person is not told. You can also withdraw an invite at any time, or decline one you have been sent — declining is silent, and the other person is never told they were declined.",
       "Reports are read by hand by us, when we are able to. This is a side project run around a day job, not a trust-and-safety team, and we cannot promise to see or act on anything quickly.",
       "If you are in danger, or something has happened that needs more than a Block button, contact venue security or the police. We are not an emergency service and we cannot help in the moment.",
     ],
