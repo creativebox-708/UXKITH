@@ -37,12 +37,17 @@ export function ChatClient({
   partner,
   active,
   initialMessages,
+  /** Page mode owns the viewport; dock mode fills whatever box it is given. */
+  fill = true,
+  onClose,
 }: {
   matchId: string;
   viewerId: string;
   partner: ProfileCard;
   active: boolean;
   initialMessages: Message[];
+  fill?: boolean;
+  onClose?: () => void;
 }) {
   const [messages, setMessages] = useState<Bubble[]>(initialMessages);
   const [draft, setDraft] = useState("");
@@ -180,7 +185,8 @@ export function ChatClient({
       toast("Could not block them. Try again.", "bad");
       return;
     }
-    router.replace("/home");
+    onClose?.();
+    if (!onClose) router.replace("/home");
     router.refresh();
   }
 
@@ -191,15 +197,26 @@ export function ChatClient({
   });
 
   return (
-    <div className="flex h-[100svh] flex-col pb-(--footer-h)">
+    <div className={fill ? "flex h-[100svh] flex-col pb-(--footer-h)" : "flex h-full min-h-0 flex-col"}>
       <header className="flex h-14 shrink-0 items-center gap-2.5 border-b border-line-soft bg-ink/85 px-3 backdrop-blur-xl">
-        <Link
-          href="/home"
-          aria-label="Back to home"
-          className="grid size-8 shrink-0 place-items-center rounded-full text-muted transition-colors hover:bg-surface hover:text-paper"
-        >
-          <BackMark className="size-4" />
-        </Link>
+        {onClose ? (
+          <button
+            type="button"
+            onClick={onClose}
+            aria-label="Close chat"
+            className="grid size-8 shrink-0 place-items-center rounded-full text-muted transition-colors hover:bg-surface hover:text-paper"
+          >
+            <CloseMark className="size-3.5" />
+          </button>
+        ) : (
+          <Link
+            href="/home"
+            aria-label="Back to home"
+            className="grid size-8 shrink-0 place-items-center rounded-full text-muted transition-colors hover:bg-surface hover:text-paper"
+          >
+            <BackMark className="size-4" />
+          </Link>
+        )}
 
         <div className="relative shrink-0">
           <Avatar name={partner.full_name} src={partner.avatar_url} size={34} />

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useState, useTransition } from "react";
 
 import { CheckMark, ChatMark } from "@/components/icons";
+import { useOpenChat } from "@/components/chat-dock";
 import { useToast } from "@/components/toast";
 import { toggleInterest } from "@/lib/actions/interests";
 import { fromCard, setCardState, useCardState } from "@/lib/card-store";
@@ -14,18 +15,29 @@ export function InterestButton({ card, size = "sm" }: { card: ProfileCard; size?
   const [pending, startTransition] = useTransition();
   const [popping, setPopping] = useState(false);
   const toast = useToast();
+  const openChat = useOpenChat();
 
   const mutual = Boolean(state.matchId && state.matchActive);
   const height = size === "md" ? "h-10 text-[13px]" : "h-8 text-[11.5px]";
 
   if (mutual) {
-    return (
-      <Link
-        href={`/chat/${state.matchId}`}
-        className={`flex w-full items-center justify-center gap-1.5 rounded-xl border border-mutual/40 bg-mutual/15 font-semibold text-mutual transition-colors hover:bg-mutual/25 ${height}`}
-      >
+    const chatClasses = `flex w-full items-center justify-center gap-1.5 rounded-xl border border-mutual/40 bg-mutual/15 font-semibold text-mutual transition-colors hover:bg-mutual/25 ${height}`;
+    const chatLabel = (
+      <>
         <ChatMark className="size-[13px]" />
         Chat
+      </>
+    );
+
+    // A dock keeps you on the page you were browsing; the route is the fallback
+    // for anywhere the provider is not mounted, and for email deep links.
+    return openChat ? (
+      <button type="button" onClick={() => openChat(state.matchId!)} className={chatClasses}>
+        {chatLabel}
+      </button>
+    ) : (
+      <Link href={`/chat/${state.matchId}`} className={chatClasses}>
+        {chatLabel}
       </Link>
     );
   }

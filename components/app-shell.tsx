@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useCallback, useEffect, useState, useTransition } from "react";
 
+import { ChatDockProvider } from "@/components/chat-dock";
 import { loadMyLists, MyListModal, type MyLists, type Tab } from "@/components/my-list-modal";
 import { HereDot } from "@/components/profile-card";
 import { Wordmark } from "@/components/wordmark";
@@ -98,7 +99,7 @@ export function AppShell({
   }
 
   return (
-    <>
+    <ChatDockProvider viewerId={viewerId}>
       <header className="sticky top-0 z-30 border-b border-line-soft bg-ink/80 backdrop-blur-xl">
         <div className="mx-auto max-w-5xl px-4">
           {/* The mark holds the left on every screen. At 375px the live count
@@ -204,6 +205,6 @@ export function AppShell({
           onRetry={() => openList(modal.tab)}
         />
       )}
-    </>
+    </ChatDockProvider>
   );
 }
