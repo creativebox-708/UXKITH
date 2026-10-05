@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 
 import { BackMark } from "@/components/icons";
+import { Wordmark } from "@/components/wordmark";
 import { builderNames } from "@/lib/builders";
 import { EVENT } from "@/lib/event";
 
@@ -187,13 +188,16 @@ const SECTIONS: Section[] = [
 export default function TermsPage() {
   return (
     <main className="mx-auto w-full max-w-2xl px-5 pt-5 pb-[calc(var(--footer-h)+3rem)]">
-      <Link
-        href="/"
-        className="-ml-1.5 inline-flex items-center gap-1.5 rounded-lg p-1.5 text-[13px] text-muted transition-colors hover:text-paper"
-      >
-        <BackMark className="size-3.5" />
-        Back
-      </Link>
+      <div className="flex items-center justify-between gap-3">
+        <Link
+          href="/"
+          className="-ml-1.5 inline-flex items-center gap-1.5 rounded-lg p-1.5 text-[13px] text-muted transition-colors hover:text-paper"
+        >
+          <BackMark className="size-3.5" />
+          Back
+        </Link>
+        <Wordmark href="/" muted />
+      </div>
 
       <header className="mt-6 mb-9">
         <h1 className="font-display text-[2rem] leading-tight text-paper">Terms and privacy</h1>

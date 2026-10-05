@@ -2,6 +2,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import type { Metadata } from "next";
 
+import { Wordmark } from "@/components/wordmark";
 import { getViewer } from "@/lib/auth";
 
 import { WelcomeForm } from "./welcome-form";
@@ -59,10 +60,7 @@ export default async function WelcomePage({
   return (
     <main className="mx-auto w-full max-w-md px-6 pt-10 pb-[calc(var(--footer-h)+2.5rem)]">
       <header className="animate-rise mb-7">
-        <div className="mb-5 flex items-center gap-2">
-          <span className="size-2 rounded-full bg-accent" aria-hidden />
-          <span className="text-[12px] font-semibold tracking-[0.14em] text-muted">THEDESIGNVIBE</span>
-        </div>
+        <Wordmark className="mb-5" muted />
         <h1 className="font-display text-[1.75rem] leading-tight text-paper">
           One question, then you&rsquo;re in.
         </h1>

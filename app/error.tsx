@@ -2,6 +2,8 @@
 
 import { useEffect } from "react";
 
+import { Wordmark } from "@/components/wordmark";
+
 export default function ErrorBoundary({
   error,
   reset,
@@ -15,6 +17,7 @@ export default function ErrorBoundary({
 
   return (
     <main className="mx-auto flex min-h-[100svh] max-w-md flex-col justify-center px-6 pb-[calc(var(--footer-h)+2rem)]">
+      <Wordmark className="mb-7" muted />
       <h1 className="font-display text-[1.75rem] leading-tight text-paper">
         That didn&rsquo;t go to plan.
       </h1>

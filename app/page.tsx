@@ -1,5 +1,6 @@
 import { Countdown } from "@/components/countdown";
 import { FlickeringGrid } from "@/components/flickering-grid";
+import { Wordmark } from "@/components/wordmark";
 import { EVENT } from "@/lib/event";
 
 import { SignInForm } from "./sign-in-form";
@@ -17,12 +18,7 @@ export default function LandingPage() {
           viewport. The clock lives up here rather than in the column, so the
           headline is the only thing competing for attention. */}
       <header className="absolute inset-x-6 top-[max(1.25rem,env(safe-area-inset-top))] flex items-center justify-between gap-3 sm:inset-x-8">
-        <div className="flex min-w-0 items-center gap-2">
-          <span className="size-2 shrink-0 rounded-full bg-accent" aria-hidden />
-          <span className="truncate text-[12.5px] font-semibold tracking-[0.12em] text-paper">
-            THEDESIGNVIBE
-          </span>
-        </div>
+        <Wordmark />
         <Countdown className="shrink-0" />
       </header>
 

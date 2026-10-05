@@ -5,6 +5,7 @@ import { useCallback, useEffect, useState, useTransition } from "react";
 
 import { loadMyLists, MyListModal, type MyLists, type Tab } from "@/components/my-list-modal";
 import { HereDot } from "@/components/profile-card";
+import { Wordmark } from "@/components/wordmark";
 import { useToast } from "@/components/toast";
 import { setHere } from "@/lib/actions/profile";
 import { createClient } from "@/lib/supabase/client";
@@ -99,51 +100,74 @@ export function AppShell({
   return (
     <>
       <header className="sticky top-0 z-30 border-b border-line-soft bg-ink/80 backdrop-blur-xl">
-        <div className="mx-auto flex h-14 max-w-5xl items-center justify-between gap-3 px-4">
-          <Link href="/home" className="flex min-w-0 items-center gap-2">
-            <span className="size-1.5 shrink-0 rounded-full bg-accent" aria-hidden />
-            <span className="truncate text-[12.5px] text-muted">
+        <div className="mx-auto max-w-5xl px-4">
+          {/* The mark holds the left on every screen. At 375px the live count
+              and the event-day button drop to a second row rather than being
+              squeezed next to it. */}
+          <div className="flex h-12 items-center justify-between gap-3 sm:h-14">
+            <div className="flex min-w-0 items-center gap-3">
+              <Wordmark href="/home" />
+              <span className="hidden truncate text-[12.5px] text-muted sm:inline">
+                <span className="font-semibold tabular-nums text-paper">
+                  {nf.format(live.attendees)}
+                </span>{" "}
+                designers are here
+              </span>
+            </div>
+
+            <div className="flex shrink-0 items-center gap-1.5">
+              {eventDay && here && (
+                <span className="flex h-8 items-center gap-1.5 rounded-full border border-mutual/35 bg-mutual/12 px-2.5 text-[11.5px] font-semibold text-mutual">
+                  <HereDot />
+                  Here
+                </span>
+              )}
+              {eventDay && !here && (
+                <button
+                  type="button"
+                  onClick={sayHere}
+                  className="hidden h-8 rounded-full bg-accent px-3 text-[11.5px] font-semibold text-accent-ink transition-all duration-200 hover:bg-accent-hi active:scale-[0.97] sm:block"
+                >
+                  I&rsquo;m here <span aria-hidden>&#128075;</span>
+                </button>
+              )}
+
+              <button
+                type="button"
+                onClick={() => openList("outgoing")}
+                aria-label={`My list, ${live.myList} people`}
+                className="flex h-8 items-center gap-1.5 rounded-full border border-line-soft bg-surface/60 px-2.5 text-[12px] font-medium text-muted transition-colors hover:border-line hover:text-paper"
+              >
+                <span className="tabular-nums">{live.myList}</span>
+                <span className="hidden sm:inline">on my list</span>
+              </button>
+
+              <Link
+                href="/settings"
+                aria-label="Settings"
+                className="grid size-8 place-items-center rounded-full border border-line-soft bg-surface/60 text-muted transition-colors hover:border-line hover:text-paper"
+              >
+                <SettingsMark className="size-3.5" />
+              </Link>
+            </div>
+          </div>
+
+          <div className="flex items-center justify-between gap-3 pb-2 sm:hidden">
+            <span className="truncate text-[11.5px] text-muted">
               <span className="font-semibold tabular-nums text-paper">
                 {nf.format(live.attendees)}
               </span>{" "}
               designers are here
             </span>
-          </Link>
-
-          <div className="flex shrink-0 items-center gap-1.5">
-            {eventDay &&
-              (here ? (
-                <span className="flex h-8 items-center gap-1.5 rounded-full border border-mutual/35 bg-mutual/12 px-2.5 text-[11.5px] font-semibold text-mutual">
-                  <HereDot />
-                  Here
-                </span>
-              ) : (
-                <button
-                  type="button"
-                  onClick={sayHere}
-                  className="h-8 rounded-full bg-accent px-3 text-[11.5px] font-semibold text-accent-ink transition-all duration-200 hover:bg-accent-hi active:scale-[0.97]"
-                >
-                  I&rsquo;m here <span aria-hidden>&#128075;</span>
-                </button>
-              ))}
-
-            <button
-              type="button"
-              onClick={() => openList("outgoing")}
-              aria-label={`My list, ${live.myList} people`}
-              className="flex h-8 items-center gap-1.5 rounded-full border border-line-soft bg-surface/60 px-2.5 text-[12px] font-medium text-muted transition-colors hover:border-line hover:text-paper"
-            >
-              <span className="tabular-nums">{live.myList}</span>
-              <span className="hidden sm:inline">on my list</span>
-            </button>
-
-            <Link
-              href="/settings"
-              aria-label="Settings"
-              className="grid size-8 place-items-center rounded-full border border-line-soft bg-surface/60 text-muted transition-colors hover:border-line hover:text-paper"
-            >
-              <SettingsMark className="size-3.5" />
-            </Link>
+            {eventDay && !here && (
+              <button
+                type="button"
+                onClick={sayHere}
+                className="h-7 shrink-0 rounded-full bg-accent px-2.5 text-[11px] font-semibold text-accent-ink transition-all duration-200 hover:bg-accent-hi active:scale-[0.97]"
+              >
+                I&rsquo;m here <span aria-hidden>&#128075;</span>
+              </button>
+            )}
           </div>
         </div>
       </header>

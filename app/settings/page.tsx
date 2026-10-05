@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 
 import { Avatar } from "@/components/avatar";
 import { BackMark } from "@/components/icons";
+import { Wordmark } from "@/components/wordmark";
 import { getViewer } from "@/lib/auth";
 
 import { DangerZone, ProfileForm } from "./settings-client";
@@ -18,13 +19,16 @@ export default async function SettingsPage() {
 
   return (
     <main className="mx-auto w-full max-w-md px-4 pt-5 pb-[calc(var(--footer-h)+2.5rem)]">
-      <Link
-        href={profile.has_invite ? "/home" : "/welcome"}
-        className="mb-6 -ml-1.5 inline-flex items-center gap-1.5 rounded-lg p-1.5 text-[13px] text-muted transition-colors hover:text-paper"
-      >
-        <BackMark className="size-3.5" />
-        Back
-      </Link>
+      <div className="mb-6 flex items-center justify-between gap-3">
+        <Link
+          href={profile.has_invite ? "/home" : "/welcome"}
+          className="-ml-1.5 inline-flex items-center gap-1.5 rounded-lg p-1.5 text-[13px] text-muted transition-colors hover:text-paper"
+        >
+          <BackMark className="size-3.5" />
+          Back
+        </Link>
+        <Wordmark href={profile.has_invite ? "/home" : "/welcome"} muted />
+      </div>
 
       <div className="mb-7 flex items-center gap-3">
         <Avatar name={profile.full_name} src={profile.avatar_url} size={48} />
