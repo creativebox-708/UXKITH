@@ -1,3 +1,4 @@
+import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 
 import { createClient } from "@/lib/supabase/server";
@@ -35,8 +36,13 @@ export async function GET(request: Request) {
   if (!user) return NextResponse.redirect(`${base}/`);
 
   // The LinkedIn button is unreachable without ticking the consent box, so
-  // arriving here with terms=1 is the record of that agreement.
-  if (searchParams.get("terms") === "1") {
+  // arriving here with that marker is the record of the agreement. The cookie
+  // is the fallback: the query param rides on redirect_to, which Supabase drops
+  // whenever it falls back to the Site URL.
+  const jar = await cookies();
+  const agreedToTerms = searchParams.get("terms") === "1" || jar.get("uxkith_terms")?.value === "1";
+
+  if (agreedToTerms) {
     await supabase
       .from("profiles")
       .update({ agreed_terms_at: new Date().toISOString() })
@@ -61,11 +67,13 @@ export async function GET(request: Request) {
         [claims.given_name, claims.family_name].filter(Boolean).join(" ") ??
         "Config attendee",
       avatar_url: claims.picture ?? claims.avatar_url ?? null,
-      agreed_terms_at: searchParams.get("terms") === "1" ? new Date().toISOString() : null,
+      agreed_terms_at: agreedToTerms ? new Date().toISOString() : null,
     });
     return NextResponse.redirect(`${base}/welcome`);
   }
 
   const destination = profile.onboarded_at && profile.has_invite ? "/home" : "/welcome";
-  return NextResponse.redirect(`${base}${destination}`);
+  const response = NextResponse.redirect(`${base}${destination}`);
+  response.cookies.delete("uxkith_terms");
+  return response;
 }

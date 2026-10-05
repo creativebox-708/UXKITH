@@ -16,6 +16,13 @@ export function SignInForm() {
     if (!agreed || busy) return;
     setBusy(true);
 
+    // Belt and braces for the consent record: ?terms=1 rides on redirect_to,
+    // which Supabase discards if the URL is not allow-listed. A cookie survives
+    // that, so ticking the box is still provable either way.
+    document.cookie = `uxkith_terms=1; Max-Age=900; Path=/; SameSite=Lax${
+      window.location.protocol === "https:" ? "; Secure" : ""
+    }`;
+
     const supabase = createClient();
     const { error } = await supabase.auth.signInWithOAuth({
       provider: "linkedin_oidc",

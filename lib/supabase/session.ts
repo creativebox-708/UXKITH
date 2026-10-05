@@ -62,6 +62,18 @@ export async function updateSession(request: NextRequest) {
 
   const { pathname } = request.nextUrl;
 
+  /**
+   * Supabase falls back to the project's Site URL whenever the redirect_to it
+   * was given is not in the allow-list, which drops the auth code on "/" where
+   * nothing exchanges it and the sign-in dies silently. Forward it to the
+   * handler instead, query intact.
+   */
+  if (pathname === "/" && request.nextUrl.searchParams.has("code")) {
+    const url = request.nextUrl.clone();
+    url.pathname = "/auth/callback";
+    return NextResponse.redirect(url);
+  }
+
   if (!user && !isPublicPath(pathname)) {
     const url = request.nextUrl.clone();
     url.pathname = "/";
