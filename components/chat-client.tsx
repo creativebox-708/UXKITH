@@ -16,19 +16,40 @@ type Bubble = Message & { pending?: boolean };
 
 const MAX = 2000;
 
+const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+/**
+ * Everything is stamped in the venue's time, formatted by hand.
+ * toLocaleTimeString(undefined, ...) disagrees between the server (UTC, Node
+ * ICU) and the browser (the reader's zone and locale), which React reports as
+ * a hydration mismatch and repaints. IST has no DST, so the offset is fixed.
+ */
+const IST_OFFSET_MS = 5.5 * 60 * 60 * 1000;
+
+function istParts(at: number) {
+  const shifted = new Date(at + IST_OFFSET_MS);
+  return {
+    day: shifted.getUTCDate(),
+    month: shifted.getUTCMonth(),
+    hours: shifted.getUTCHours(),
+    minutes: shifted.getUTCMinutes(),
+    stamp: shifted.toISOString().slice(0, 10),
+  };
+}
+
 function dayLabel(iso: string) {
-  const date = new Date(iso);
-  const today = new Date();
-  const sameDay = date.toDateString() === today.toDateString();
-  if (sameDay) return "Today";
-  const yesterday = new Date(today);
-  yesterday.setDate(today.getDate() - 1);
-  if (date.toDateString() === yesterday.toDateString()) return "Yesterday";
-  return date.toLocaleDateString(undefined, { day: "numeric", month: "short" });
+  const at = istParts(Date.parse(iso));
+  const today = istParts(Date.now());
+  const yesterday = istParts(Date.now() - 24 * 60 * 60 * 1000);
+  if (at.stamp === today.stamp) return "Today";
+  if (at.stamp === yesterday.stamp) return "Yesterday";
+  return `${at.day} ${MONTHS[at.month]}`;
 }
 
 function timeLabel(iso: string) {
-  return new Date(iso).toLocaleTimeString(undefined, { hour: "numeric", minute: "2-digit" });
+  const { hours, minutes } = istParts(Date.parse(iso));
+  const hour12 = hours % 12 === 0 ? 12 : hours % 12;
+  return `${hour12}:${String(minutes).padStart(2, "0")} ${hours < 12 ? "AM" : "PM"}`;
 }
 
 export function ChatClient({
@@ -263,7 +284,19 @@ export function ChatClient({
                 onClick={() => setMenuOpen(false)}
                 className="fixed inset-0 z-10 cursor-default"
               />
-              <div className="animate-fade absolute right-0 z-20 mt-1.5 w-40 overflow-hidden rounded-xl border border-line-soft bg-ink-soft shadow-[0_18px_40px_-16px_rgba(0,0,0,0.9)]">
+              <div className="animate-fade absolute right-0 z-20 mt-1.5 w-48 overflow-hidden rounded-xl border border-line-soft bg-ink-soft shadow-[0_18px_40px_-16px_rgba(0,0,0,0.9)]">
+                {partner.linkedin_url && (
+                  <a
+                    href={partner.linkedin_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => setMenuOpen(false)}
+                    className="flex items-center gap-2 border-b border-line-soft px-3.5 py-2.5 text-[13px] text-paper transition-colors hover:bg-surface"
+                  >
+                    <LinkedInMark className="size-[13px] text-muted-dim" />
+                    Connect on LinkedIn
+                  </a>
+                )}
                 <button
                   type="button"
                   onClick={() => {

@@ -109,17 +109,22 @@ export function WelcomeForm({ profile }: { profile: Profile }) {
 
           <div>
             <label htmlFor="linkedin_url" className={LABEL}>
-              LinkedIn profile <span className="text-muted-dim">(optional)</span>
+              LinkedIn profile
             </label>
             <input
               id="linkedin_url"
               name="linkedin_url"
               type="url"
               inputMode="url"
+              required
               defaultValue={profile.linkedin_url ?? ""}
               placeholder="linkedin.com/in/you"
               className={FIELD}
             />
+            <p className="mt-1.5 text-[11px] leading-snug text-muted-dim">
+              Sign-in doesn&rsquo;t hand us your profile link, and it&rsquo;s how people connect
+              with you once you both say yes.
+            </p>
           </div>
 
           <div>

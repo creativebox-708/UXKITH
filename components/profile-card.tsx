@@ -1,6 +1,7 @@
 "use client";
 
 import { Avatar } from "@/components/avatar";
+import { ConnectLink } from "@/components/connect-link";
 import { InterestButton, InterestCount } from "@/components/interest-button";
 import { StatusBadge } from "@/components/status-badge";
 import { LinkedInMark } from "@/components/icons";
@@ -80,6 +81,9 @@ export function ProfileCard({
           {card.city && <span className="truncate text-[11px] text-muted-dim">{card.city}</span>}
         </div>
         <InterestButton card={card} />
+        <div className="mt-1.5 empty:hidden">
+          <ConnectLink card={card} />
+        </div>
         {footer && <div className="mt-1.5">{footer}</div>}
       </div>
     </article>

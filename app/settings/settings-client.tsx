@@ -69,6 +69,7 @@ export function ProfileForm({ profile }: { profile: Profile }) {
           name="linkedin_url"
           type="url"
           inputMode="url"
+          required
           defaultValue={profile.linkedin_url ?? ""}
           placeholder="linkedin.com/in/you"
           className={FIELD}

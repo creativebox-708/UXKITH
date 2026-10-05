@@ -8,6 +8,10 @@ import { notify } from "@/lib/notify";
 
 export type WelcomeState = { error?: string; savedAt?: number };
 
+/** Without this there is nothing to "Connect on LinkedIn" with, so it is required. */
+const NEED_LINKEDIN =
+  "Add your LinkedIn profile URL — it is how people connect with you after you match.";
+
 function clean(value: FormDataEntryValue | null, max: number) {
   const text = typeof value === "string" ? value.trim() : "";
   if (!text) return null;
@@ -44,6 +48,9 @@ export async function completeWelcome(
   }
   const hasInvite = answer === "yes";
 
+  const linkedIn = cleanLinkedIn(formData.get("linkedin_url"));
+  if (hasInvite && !linkedIn) return { error: NEED_LINKEDIN };
+
   const { error } = await supabase
     .from("profiles")
     .update({
@@ -52,7 +59,7 @@ export async function completeWelcome(
       headline: clean(formData.get("headline"), 120),
       company: clean(formData.get("company"), 80),
       city: clean(formData.get("city"), 60),
-      linkedin_url: cleanLinkedIn(formData.get("linkedin_url")),
+      linkedin_url: linkedIn,
       hoping_to_get: clean(formData.get("hoping_to_get"), 120),
     })
     .eq("id", user.id);
@@ -75,13 +82,21 @@ export async function updateProfile(
   } = await supabase.auth.getUser();
   if (!user) redirect("/");
 
+  const linkedIn = cleanLinkedIn(formData.get("linkedin_url"));
+  const { data: me } = await supabase
+    .from("profiles")
+    .select("has_invite")
+    .eq("id", user.id)
+    .maybeSingle();
+  if (me?.has_invite && !linkedIn) return { error: NEED_LINKEDIN };
+
   const { error } = await supabase
     .from("profiles")
     .update({
       headline: clean(formData.get("headline"), 120),
       company: clean(formData.get("company"), 80),
       city: clean(formData.get("city"), 60),
-      linkedin_url: cleanLinkedIn(formData.get("linkedin_url")),
+      linkedin_url: linkedIn,
       hoping_to_get: clean(formData.get("hoping_to_get"), 120),
     })
     .eq("id", user.id);
