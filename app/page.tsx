@@ -5,6 +5,18 @@ import { EVENT } from "@/lib/event";
 
 import { SignInForm } from "./sign-in-form";
 
+/**
+ * The actual mechanic, in the order it happens, worded to match what the app
+ * really does. It sits above the sign-in button on purpose: nobody should have
+ * to hand over a LinkedIn account to find out what the thing is.
+ */
+const STEPS = [
+  "Sign in with LinkedIn. Nothing else is asked.",
+  "Search designers, tap “Interested to meet”.",
+  "If they tap it back, you’re matched.",
+  "Chat to arrange it, then meet on the day.",
+];
+
 export default function LandingPage() {
   return (
     <main className="relative flex h-[100svh] items-center justify-center overflow-hidden px-6 pb-(--footer-h) sm:px-8">
@@ -23,25 +35,47 @@ export default function LandingPage() {
       </header>
 
       <div className="animate-rise w-full max-w-xl text-center">
-        <h1 className="font-display text-[clamp(1.75rem,8vw,2.125rem)] leading-[1.1] tracking-[-0.015em] text-balance text-paper sm:text-[2.75rem] sm:leading-[1.06]">
+        <h1 className="font-display text-[clamp(1.625rem,7.4vw,2.125rem)] leading-[1.1] tracking-[-0.015em] text-balance text-paper sm:text-[2.75rem] sm:leading-[1.06]">
           India&rsquo;s first Config. One day. Don&rsquo;t spend it walking past the people you came
           to meet.
         </h1>
 
-        <p className="mx-auto mt-4 max-w-md text-[15px] leading-relaxed text-balance text-muted sm:text-base">
+        <p className="mx-auto mt-3.5 max-w-md text-[14.5px] leading-relaxed text-balance text-muted sm:text-base">
           Find the ones you came to meet, before the doors open.
         </p>
 
-        <p className="mx-auto mt-5 max-w-sm text-[11px] leading-snug text-balance text-muted-dim">
-          {EVENT.dateLabel} &middot; {EVENT.venueShort} &middot; {EVENT.format}
-        </p>
+        <div className="mx-auto mt-5 max-w-xs sm:mt-6 sm:max-w-sm">
+          <p className="text-[9px] font-semibold tracking-[0.14em] text-muted-dim uppercase">
+            How it works
+          </p>
+          <ol className="mt-2.5 flex flex-col gap-1.5 text-left">
+            {STEPS.map((step, i) => (
+              <li
+                key={step}
+                className="flex items-start gap-2.5 text-[11.5px] leading-snug text-muted"
+              >
+                <span
+                  aria-hidden
+                  className="mt-px grid size-[15px] shrink-0 place-items-center rounded-full border border-line bg-surface/70 text-[9px] font-semibold tabular-nums text-muted-dim"
+                >
+                  {i + 1}
+                </span>
+                {step}
+              </li>
+            ))}
+          </ol>
+        </div>
 
-        <div className="mx-auto mt-6 w-full max-w-sm sm:mt-7">
+        <div className="mx-auto mt-5 w-full max-w-sm sm:mt-6">
           <SignInForm />
         </div>
 
+        <p className="mx-auto mt-4 max-w-sm text-[11px] leading-snug text-balance text-muted-dim">
+          {EVENT.dateLabel} &middot; {EVENT.venueShort} &middot; {EVENT.format}
+        </p>
+
         {/* Said plainly and up front, not only in the terms. */}
-        <p className="mx-auto mt-5 max-w-sm text-[10.5px] leading-snug text-balance text-muted-dim">
+        <p className="mx-auto mt-1.5 max-w-sm text-[10.5px] leading-snug text-balance text-muted-dim">
           Independent and unofficial &mdash; not affiliated with or endorsed by Figma.{" "}
           <a
             href={EVENT.officialUrl}
