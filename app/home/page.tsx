@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import { AppShell } from "@/components/app-shell";
 import { CardGrid } from "@/components/card-grid";
 import { EmptyState } from "@/components/empty-state";
+import { MyCard } from "@/components/my-card";
 import { requireAttendee } from "@/lib/auth";
 import { eventDayEnabled } from "@/lib/flags";
 import { createClient } from "@/lib/supabase/server";
@@ -16,10 +17,12 @@ export default async function HomePage() {
   const { user, profile } = await requireAttendee();
   const supabase = await createClient();
 
-  const [attendees, inbound, myList, suggested, notes] = await Promise.all([
+  const [attendees, inbound, myList, connections, suggested, notes] = await Promise.all([
     supabase.rpc("attendee_count"),
     supabase.rpc("inbound_count"),
     supabase.from("interests").select("*", { count: "exact", head: true }).eq("from_user", user.id),
+    // RLS already narrows matches to the two people in them, so this counts mine.
+    supabase.from("matches").select("*", { count: "exact", head: true }).eq("active", true),
     supabase.rpc("suggested_profiles", { p_limit: 8 }),
     supabase.rpc("notifications", { p_limit: 20 }),
   ]);
@@ -40,8 +43,17 @@ export default async function HomePage() {
       isHere={profile.is_here}
       showInboundBanner
     >
-      <main className="mx-auto w-full max-w-5xl px-4 pt-6 pb-[calc(var(--footer-h)+2.5rem)]">
-        <h1 className="font-display text-[1.6rem] leading-tight text-paper sm:text-3xl">
+      <main className="mx-auto w-full max-w-5xl px-4 pt-5 pb-[calc(var(--footer-h)+2.5rem)]">
+        <MyCard
+          profile={profile}
+          stats={{
+            inbound: inbound.data ?? 0,
+            outgoing: myList.count ?? 0,
+            connections: connections.count ?? 0,
+          }}
+        />
+
+        <h1 className="mt-7 font-display text-[1.6rem] leading-tight text-paper sm:text-3xl">
           Who do you want to meet{firstName ? `, ${firstName}` : ""}?
         </h1>
         <p className="mt-1.5 text-[13px] text-muted">

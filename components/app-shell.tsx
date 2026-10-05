@@ -116,7 +116,7 @@ export function AppShell({
                 <span className="font-semibold tabular-nums text-paper">
                   {nf.format(live.attendees)}
                 </span>{" "}
-                designers are here
+                designers on UXKITH
               </span>
             </div>
 
@@ -164,7 +164,7 @@ export function AppShell({
               <span className="font-semibold tabular-nums text-paper">
                 {nf.format(live.attendees)}
               </span>{" "}
-              designers are here
+              designers on UXKITH
             </span>
             {eventDay && !here && (
               <button
