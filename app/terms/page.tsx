@@ -165,7 +165,7 @@ const SECTIONS: Section[] = [
     heading: "Your rights over your information",
     paragraphs: [
       "You can see everything we hold about you in the app itself: it is your card and your messages. You can correct any of it in Settings, and you can erase all of it with Delete my account.",
-      "If you would rather not do it yourself, or you want something removed without signing in, message us on LinkedIn — the link is in the footer of every page — and we will deal with it. If you are unhappy with how we have handled a request, say so and we will try to put it right.",
+      "If you would rather not do it yourself, or you want something removed without signing in, message us on LinkedIn — see the footer of every page — and we will deal with it. If you are unhappy with how we have handled a request, say so and we will try to put it right.",
     ],
   },
   {
@@ -242,7 +242,7 @@ export default function TermsPage() {
 
       <p className="mt-10 border-t border-line-soft pt-5 text-[12.5px] leading-relaxed text-muted-dim">
         Questions, a takedown request, or want your data gone without signing in? Message either of
-        us on LinkedIn &mdash; the link is in the footer of every page.
+        us on LinkedIn &mdash; see the footer of every page.
       </p>
     </main>
   );

@@ -8,14 +8,18 @@ export function Footer() {
         {builders.map((person, i) => (
           <span key={person.name} className="flex items-center gap-1">
             {i > 0 && <span aria-hidden>&amp;</span>}
-            <a
-              href={person.linkedin}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-muted underline-offset-2 transition-colors hover:text-paper hover:underline"
-            >
-              {person.name}
-            </a>
+            {person.linkedin ? (
+              <a
+                href={person.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-muted underline-offset-2 transition-colors hover:text-paper hover:underline"
+              >
+                {person.name}
+              </a>
+            ) : (
+              <span className="text-muted">{person.name}</span>
+            )}
           </span>
         ))}
       </div>
