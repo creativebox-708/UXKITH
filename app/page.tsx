@@ -12,7 +12,7 @@ import { SignInForm } from "./sign-in-form";
  */
 const STEPS = [
   { emoji: "🔑", lead: "Sign in with LinkedIn.", rest: "Nothing else is asked." },
-  { emoji: "🔍", lead: "Find your people.", rest: "Search, then show interest." },
+  { emoji: "🔍", lead: "Find your people.", rest: "Search, show interest." },
   { emoji: "🤝", lead: "They tap back.", rest: "That’s a match — only then." },
   { emoji: "💬", lead: "Chat, then meet.", rest: "Sort out where, on the day." },
 ];
@@ -49,20 +49,20 @@ export default function LandingPage() {
         </div>
 
         <div className="mx-auto mt-4 w-full max-w-sm rounded-2xl border border-line-soft bg-surface/40 px-4 py-3 text-left">
-          <p className="text-[9px] font-semibold tracking-[0.14em] text-muted-dim uppercase">
+          <p className="text-center text-[10px] font-semibold tracking-[0.14em] text-muted-dim uppercase">
             How it works
           </p>
-          <ol className="mt-2 flex flex-col gap-1.5">
+          <ol className="mt-2.5 flex flex-col gap-2">
             {STEPS.map((step) => (
               <li
                 key={step.lead}
-                className="flex items-start gap-2.5 text-[11.5px] leading-snug text-muted-dim"
+                className="flex items-start gap-2.5 text-[12.5px] leading-snug text-muted"
               >
-                <span aria-hidden className="w-4 shrink-0 text-[12px]">
+                <span aria-hidden className="w-[18px] shrink-0 text-[13px]">
                   {step.emoji}
                 </span>
                 <span>
-                  <span className="font-medium text-paper">{step.lead}</span> {step.rest}
+                  <span className="font-semibold text-paper">{step.lead}</span> {step.rest}
                 </span>
               </li>
             ))}
