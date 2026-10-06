@@ -55,17 +55,14 @@ export function AppShell({
     const [attendees, inbound, myList] = await Promise.all([
       supabase.rpc("attendee_count"),
       supabase.rpc("inbound_count"),
-      supabase
-        .from("interests")
-        .select("*", { count: "exact", head: true })
-        .eq("from_user", viewerId),
+      supabase.rpc("outgoing_pending_count"),
     ]);
     setLive((current) => ({
       attendees: attendees.data ?? current.attendees,
       inbound: inbound.data ?? current.inbound,
-      myList: myList.count ?? current.myList,
+      myList: myList.data ?? current.myList,
     }));
-  }, [viewerId]);
+  }, []);
 
   // "Live" enough for a one-day event, without putting profiles on the wire.
   useEffect(() => {
@@ -142,11 +139,11 @@ export function AppShell({
               <button
                 type="button"
                 onClick={() => openList("outgoing")}
-                aria-label={`My list, ${live.myList} people`}
+                aria-label={`My invites, ${live.myList} awaiting an answer`}
                 className="flex h-8 items-center gap-1.5 rounded-full border border-line-soft bg-surface/60 px-2.5 text-[12px] font-medium text-muted transition-colors hover:border-line hover:text-paper"
               >
                 <span className="tabular-nums">{live.myList}</span>
-                <span className="hidden sm:inline">on my list</span>
+                <span className="hidden sm:inline">invites sent</span>
               </button>
 
               <Link

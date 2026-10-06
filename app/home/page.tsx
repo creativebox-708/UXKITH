@@ -21,10 +21,8 @@ export default async function HomePage() {
     await Promise.all([
       supabase.rpc("attendee_count"),
       supabase.rpc("inbound_count"),
-      supabase
-        .from("interests")
-        .select("*", { count: "exact", head: true })
-        .eq("from_user", user.id),
+      // Pending only: an accepted invite is a connection, counted below.
+      supabase.rpc("outgoing_pending_count"),
       // RLS already narrows matches to the two people in them, so this counts mine.
       supabase.from("matches").select("*", { count: "exact", head: true }).eq("active", true),
       supabase.rpc("suggested_profiles", { p_limit: 8 }),
@@ -43,7 +41,7 @@ export default async function HomePage() {
       counts={{
         attendees: attendees.data ?? 0,
         inbound: inbound.data ?? 0,
-        myList: myList.count ?? 0,
+        myList: myList.data ?? 0,
       }}
       notifications={toNotifications(notes.data)}
       eventDay={eventDayEnabled}
@@ -55,7 +53,7 @@ export default async function HomePage() {
           profile={profile}
           stats={{
             inbound: inbound.data ?? 0,
-            outgoing: myList.count ?? 0,
+            outgoing: myList.data ?? 0,
             connections: connections.count ?? 0,
           }}
         />

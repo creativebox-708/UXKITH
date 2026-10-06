@@ -219,6 +219,7 @@ export type Database = {
         Args: never;
         Returns: Database["public"]["CompositeTypes"]["profile_card"][];
       };
+      outgoing_pending_count: { Args: never; Returns: number };
       suggested_profiles: {
         Args: { p_limit?: number };
         Returns: Database["public"]["CompositeTypes"]["profile_card"][];

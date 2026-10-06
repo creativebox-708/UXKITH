@@ -19,7 +19,7 @@ export default async function BrowsePage() {
   const [attendees, inbound, myList, firstPage, options, notes] = await Promise.all([
     supabase.rpc("attendee_count"),
     supabase.rpc("inbound_count"),
-    supabase.from("interests").select("*", { count: "exact", head: true }).eq("from_user", user.id),
+    supabase.rpc("outgoing_pending_count"),
     supabase.rpc("browse_profiles", { p_limit: 24, p_offset: 0 }),
     supabase.rpc("filter_options"),
     supabase.rpc("notifications", { p_limit: 20 }),
@@ -33,7 +33,7 @@ export default async function BrowsePage() {
       counts={{
         attendees: attendees.data ?? 0,
         inbound: inbound.data ?? 0,
-        myList: myList.count ?? 0,
+        myList: myList.data ?? 0,
       }}
       notifications={toNotifications(notes.data)}
       eventDay={eventDayEnabled}

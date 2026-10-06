@@ -83,8 +83,8 @@ export function MyCard({ profile, stats }: { profile: Profile; stats: MyStats })
       )}
 
       <div className="mt-3.5 flex flex-wrap items-center gap-x-4 gap-y-1.5 border-t border-line-soft pt-3">
-        <Stat value={stats.inbound} label="want to meet you" />
-        <Stat value={stats.outgoing} label="on your list" />
+        <Stat value={stats.inbound} label="waiting on you" />
+        <Stat value={stats.outgoing} label="invites sent" />
         <Stat
           value={stats.connections}
           label={stats.connections === 1 ? "connection" : "connections"}
