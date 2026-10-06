@@ -114,16 +114,16 @@ export function WelcomeForm({ profile }: { profile: Profile }) {
             <input
               id="linkedin_url"
               name="linkedin_url"
-              type="url"
+              type="text"
               inputMode="url"
               required
               defaultValue={profile.linkedin_url ?? ""}
-              placeholder="linkedin.com/in/you"
+              placeholder="your-handle, or paste the full link"
               className={FIELD}
             />
             <p className="mt-1.5 text-[11px] leading-snug text-muted-dim">
-              Sign-in doesn&rsquo;t hand us your profile link, and it&rsquo;s how people connect
-              with you once you both say yes.
+              Just the bit after <span className="text-muted">linkedin.com/in/</span> is enough.
+              It&rsquo;s how people connect with you once you both say yes.
             </p>
           </div>
 

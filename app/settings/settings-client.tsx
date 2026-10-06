@@ -67,11 +67,11 @@ export function ProfileForm({ profile }: { profile: Profile }) {
         <input
           id="linkedin_url"
           name="linkedin_url"
-          type="url"
+          type="text"
           inputMode="url"
           required
           defaultValue={profile.linkedin_url ?? ""}
-          placeholder="linkedin.com/in/you"
+          placeholder="your-handle, or paste the full link"
           className={FIELD}
         />
       </div>

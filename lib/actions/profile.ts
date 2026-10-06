@@ -10,7 +10,7 @@ export type WelcomeState = { error?: string; savedAt?: number };
 
 /** Without this there is nothing to "Connect on LinkedIn" with, so it is required. */
 const NEED_LINKEDIN =
-  "Add your LinkedIn profile URL — it is how people connect with you after you match.";
+  "Add your LinkedIn — paste the link, or just your handle. It is how people connect with you after you match.";
 
 function clean(value: FormDataEntryValue | null, max: number) {
   const text = typeof value === "string" ? value.trim() : "";
@@ -21,6 +21,15 @@ function clean(value: FormDataEntryValue | null, max: number) {
 function cleanLinkedIn(value: FormDataEntryValue | null) {
   const raw = clean(value, 200);
   if (!raw) return null;
+
+  // On a phone, finding your own profile URL means leaving the app. A bare
+  // handle is what people reach for, so "deepraj-k", "@deepraj-k" and
+  // "in/deepraj-k" all count, as well as a pasted URL.
+  const handle = raw.replace(/^@/, "").replace(/^in\//i, "").replace(/\/$/, "");
+  if (/^[\p{L}\p{N}-]{3,100}$/u.test(handle)) {
+    return `https://www.linkedin.com/in/${handle}`;
+  }
+
   const withProtocol = /^https?:\/\//i.test(raw) ? raw : `https://${raw}`;
   try {
     const url = new URL(withProtocol);
