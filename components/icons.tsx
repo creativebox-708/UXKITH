@@ -75,3 +75,22 @@ export function SpinnerMark({ className }: IconProps) {
     </svg>
   );
 }
+
+export function TrophyMark({ className }: IconProps) {
+  return (
+    <svg
+      viewBox="0 0 16 16"
+      aria-hidden
+      className={className}
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={1.5}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M4.8 2.4h6.4v3.1a3.2 3.2 0 0 1-6.4 0V2.4Z" />
+      <path d="M4.8 3.3H3.1v1a2 2 0 0 0 1.8 2M11.2 3.3h1.7v1a2 2 0 0 1-1.8 2" />
+      <path d="M8 8.7v2.4M5.6 13.6h4.8l-.5-2.5H6.1l-.5 2.5Z" />
+    </svg>
+  );
+}

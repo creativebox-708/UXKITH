@@ -220,6 +220,15 @@ export type Database = {
         Returns: Database["public"]["CompositeTypes"]["profile_card"][];
       };
       outgoing_pending_count: { Args: never; Returns: number };
+      my_quiz_score: {
+        Args: never;
+        Returns: Database["public"]["CompositeTypes"]["quiz_entry"][];
+      };
+      quiz_leaderboard: {
+        Args: { p_limit?: number };
+        Returns: Database["public"]["CompositeTypes"]["quiz_entry"][];
+      };
+      quiz_player_count: { Args: never; Returns: number };
       suggested_profiles: {
         Args: { p_limit?: number };
         Returns: Database["public"]["CompositeTypes"]["profile_card"][];
@@ -227,6 +236,15 @@ export type Database = {
     };
     Enums: { [_ in never]: never };
     CompositeTypes: {
+      quiz_entry: {
+        rank: number | null;
+        user_id: string | null;
+        full_name: string | null;
+        avatar_url: string | null;
+        correct: number | null;
+        time_ms: number | null;
+        is_me: boolean | null;
+      };
       notification_item: {
         kind: string | null;
         actor_id: string | null;

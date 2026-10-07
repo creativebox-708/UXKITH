@@ -5,6 +5,7 @@ import { useCallback, useEffect, useState, useTransition } from "react";
 
 import { ChatDockProvider } from "@/components/chat-dock";
 import { loadMyLists, MyListModal, type MyLists, type Tab } from "@/components/my-list-modal";
+import { TrophyMark } from "@/components/icons";
 import { NotificationsBell } from "@/components/notifications";
 import { HereDot } from "@/components/profile-card";
 import { Wordmark } from "@/components/wordmark";
@@ -133,6 +134,16 @@ export function AppShell({
                   I&rsquo;m here <span aria-hidden>&#128075;</span>
                 </button>
               )}
+
+              {/* The quiz is a sideshow, so it gets an icon rather than a
+                  place in the row of things that are actually the point. */}
+              <Link
+                href="/quiz"
+                aria-label="Figma quiz and leaderboard"
+                className="grid size-8 place-items-center rounded-full border border-line-soft bg-surface/60 text-muted transition-colors hover:border-line hover:text-paper"
+              >
+                <TrophyMark className="size-[15px]" />
+              </Link>
 
               <NotificationsBell initial={notifications} />
 

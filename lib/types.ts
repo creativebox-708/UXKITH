@@ -57,6 +57,33 @@ export function isMutual(card: Pick<ProfileCard, "match_id" | "match_active">) {
   return Boolean(card.match_id && card.match_active);
 }
 
+type RawQuizEntry = Database["public"]["CompositeTypes"]["quiz_entry"];
+
+/** A row on the scoreboard. Deliberately never reaches a profile card. */
+export type QuizEntry = {
+  rank: number;
+  userId: string;
+  fullName: string;
+  avatarUrl: string | null;
+  correct: number;
+  timeMs: number;
+  isMe: boolean;
+};
+
+export function toQuizEntries(rows: RawQuizEntry[] | null): QuizEntry[] {
+  return (rows ?? [])
+    .filter((r) => r.user_id)
+    .map((r) => ({
+      rank: r.rank ?? 0,
+      userId: r.user_id!,
+      fullName: r.full_name ?? "Config attendee",
+      avatarUrl: r.avatar_url,
+      correct: r.correct ?? 0,
+      timeMs: r.time_ms ?? 0,
+      isMe: r.is_me ?? false,
+    }));
+}
+
 type RawNotification = Database["public"]["CompositeTypes"]["notification_item"];
 
 export type AppNotification = {
