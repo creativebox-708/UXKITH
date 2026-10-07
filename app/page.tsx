@@ -19,22 +19,31 @@ const STEPS = [
 
 export default function LandingPage() {
   return (
-    <main className="relative flex h-[100svh] items-center justify-center overflow-hidden px-6 pt-14 pb-(--footer-h) sm:px-8 sm:pt-16">
+    /* min-h, not h: this page used to be a fixed-height box with the content
+       centred inside and overflow hidden. The moment the column was taller
+       than the viewport — a short in-app browser, or a phone set to a larger
+       system font — it overflowed equally in both directions, the top of the
+       headline went up behind the header, and nothing could be scrolled back
+       into view. It now grows and scrolls instead of clipping, and still sits
+       on one screen whenever it fits. */
+    <main className="relative flex min-h-[100svh] flex-col px-6 pb-(--footer-h) sm:px-8">
       {/* Vignette: the grid lives at the edges and clears out of the middle,
           so the centred column never has to be read through it. */}
-      <div className="pointer-events-none absolute inset-0 -z-10 [-webkit-mask-image:radial-gradient(ellipse_78%_58%_at_50%_48%,transparent_30%,black_88%)] [mask-image:radial-gradient(ellipse_78%_58%_at_50%_48%,transparent_30%,black_88%)]">
+      <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden [-webkit-mask-image:radial-gradient(ellipse_78%_58%_at_50%_48%,transparent_30%,black_88%)] [mask-image:radial-gradient(ellipse_78%_58%_at_50%_48%,transparent_30%,black_88%)]">
         <FlickeringGrid color="#ff5c38" maxOpacity={0.22} flickerChance={0.22} />
       </div>
 
-      {/* Slim header, pinned out of the flow so the column centres on the true
-          viewport. The clock lives up here rather than in the column, so the
-          headline is the only thing competing for attention. */}
-      <header className="absolute inset-x-6 top-[max(1.25rem,env(safe-area-inset-top))] flex items-center justify-between gap-3 sm:inset-x-8">
+      {/* In the flow rather than pinned, so it cannot land on top of the
+          headline at any font size. The clock lives up here rather than in the
+          column, so the headline is the only thing competing for attention. */}
+      <header className="flex shrink-0 items-center justify-between gap-3 pt-[max(1.25rem,env(safe-area-inset-top))]">
         <Wordmark />
         <Countdown className="shrink-0" />
       </header>
 
-      <div className="animate-rise w-full max-w-xl text-center">
+      {/* my-auto centres the column in the space left over, and collapses to
+          nothing when there is none — auto margins never cause overflow. */}
+      <div className="animate-rise mx-auto my-auto w-full max-w-xl py-4 text-center sm:py-6">
         <h1 className="font-display text-[clamp(1.5rem,7vw,2.125rem)] leading-[1.1] tracking-[-0.015em] text-balance text-paper sm:text-[2.75rem] sm:leading-[1.06]">
           India&rsquo;s first Config. One day. Don&rsquo;t spend it walking past the people you came
           to meet.
