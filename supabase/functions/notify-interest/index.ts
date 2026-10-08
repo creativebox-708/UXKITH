@@ -112,12 +112,14 @@ Deno.serve(async (req) => {
     .maybeSingle();
   if (!interest) return json({ skipped: "no_interest" });
 
+  // Anyone signed in is listed and can be invited, confirmed or not, so the
+  // only question here is whether the profile still exists.
   const { data: recipient } = await admin
     .from("profiles")
-    .select("has_invite")
+    .select("id")
     .eq("id", toUser)
     .maybeSingle();
-  if (!recipient?.has_invite) return json({ skipped: "not_listed" });
+  if (!recipient) return json({ skipped: "no_profile" });
 
   const { data: tagger } = await admin
     .from("profiles")

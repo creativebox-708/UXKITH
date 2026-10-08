@@ -6,6 +6,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 
 import { Avatar } from "@/components/avatar";
 import { BackMark, CloseMark, DotsMark, LinkedInMark, SendMark, SpinnerMark } from "@/components/icons";
+import { InviteBadge } from "@/components/invite-badge";
 import { HereDot } from "@/components/profile-card";
 import { useToast } from "@/components/toast";
 import { blockUser, reportUser } from "@/lib/actions/safety";
@@ -245,8 +246,9 @@ export function ChatClient({
         </div>
 
         <div className="min-w-0 flex-1">
-          <p className="truncate text-[14px] leading-tight font-semibold text-paper">
-            {partner.full_name}
+          <p className="flex items-center gap-1.5 text-[14px] leading-tight font-semibold text-paper">
+            <span className="truncate">{partner.full_name}</span>
+            <InviteBadge card={partner} />
           </p>
           <p className="truncate text-[11.5px] text-muted-dim">
             {partner.is_here ? "At Config now" : (partner.headline ?? "Mutual interest")}

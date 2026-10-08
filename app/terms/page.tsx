@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 };
 
 /** Shown at the top so nobody has to guess which version they agreed to. */
-const LAST_UPDATED = "6 October 2026";
+const LAST_UPDATED = "9 October 2026";
 
 type Section = {
   heading: string;
@@ -29,6 +29,7 @@ const SECTIONS: Section[] = [
       "It is not made by, affiliated with, endorsed by or connected to Figma, the organisers of Config, or any Figma community or chapter.",
       "It is strictly professional. It is not a dating app, not a matchmaking service, and not a job board.",
       "We never ask for, store or share a phone number.",
+      "Signing in puts you on the list. Confirming a Config invite adds a badge, nothing more.",
       "An invite is a signal, not an obligation. Nobody has to accept one, declining is silent, and meeting anyone is your own decision, taken entirely at your own risk.",
       "Harassment of any kind gets you removed. Write to people the way you would speak to them standing in the same room, because shortly you might be.",
       "You can delete everything about yourself in two taps, and the whole thing is switched off shortly after the event anyway.",
@@ -62,7 +63,8 @@ const SECTIONS: Section[] = [
   {
     heading: "Who may use it",
     paragraphs: [
-      "You must be 18 or over, and you must be a genuine invitee to the event. The invite question is on your honour; we have no way of checking it and we do not try to.",
+      "You must be 18 or over. We ask once whether you received a Config India 2026 invite, and answering yes puts an “invited” badge on your card. It is on your honour — we have no way of checking it and we do not try to.",
+      "Either answer lists you. Anyone who signs in can be seen and invited by the other signed-in attendees; the badge only tells people who has said they hold an invite. If you would rather not be listed at all, delete your account in Settings and nothing of yours remains.",
       "One account per person. Do not sign in as somebody else, do not impersonate anyone, and do not create accounts for people who have not asked for one.",
     ],
   },
@@ -105,7 +107,7 @@ const SECTIONS: Section[] = [
   {
     heading: "Who can see what",
     paragraphs: [
-      "Other signed-in invitees can see your card, and the number of people interested in meeting you. They cannot see who those people are.",
+      "Signing in lists you. Other signed-in attendees can see your card, whether or not you have confirmed an invite, along with the number of people interested in meeting you. They cannot see who those people are.",
       "You can see who has invited you. Tapping “Interested to meet” sends that person an invite and one email, with your name and headline. Withdrawing it is silent — no second email, no notification, and they are not told.",
       "Chat opens only once an invite has been accepted — that is, when both of you have tapped the button. Nobody outside that pair can read those messages, and nobody outside it can send into the conversation.",
     ],

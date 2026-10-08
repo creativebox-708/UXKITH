@@ -72,7 +72,8 @@ export async function GET(request: Request) {
     return NextResponse.redirect(`${base}/welcome`);
   }
 
-  const destination = profile.onboarded_at && profile.has_invite ? "/home" : "/welcome";
+  // Asked once, on the first visit; after that nobody is held up by it.
+  const destination = profile.onboarded_at ? "/home" : "/welcome";
   const response = NextResponse.redirect(`${base}${destination}`);
   response.cookies.delete("uxkith_terms");
   return response;

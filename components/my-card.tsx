@@ -2,6 +2,7 @@ import Link from "next/link";
 
 import { Avatar } from "@/components/avatar";
 import { LinkedInMark } from "@/components/icons";
+import { InviteBadge } from "@/components/invite-badge";
 import { HereDot } from "@/components/profile-card";
 import type { Profile } from "@/lib/types";
 
@@ -50,6 +51,7 @@ export function MyCard({ profile, stats }: { profile: Profile; stats: MyStats })
           </p>
           <h2 className="mt-1 flex items-center gap-2 text-[15px] leading-tight font-semibold tracking-[-0.01em] text-paper">
             <span className="truncate">{profile.full_name}</span>
+            <InviteBadge card={{ invite_confirmed: profile.has_invite }} />
             {profile.linkedin_url && (
               <a
                 href={profile.linkedin_url}
@@ -93,6 +95,18 @@ export function MyCard({ profile, stats }: { profile: Profile; stats: MyStats })
 
       {/* A card with gaps gets tapped less, so name the gaps rather than
           leaving them to be noticed. */}
+      {!profile.has_invite && (
+        <p className="mt-3 text-[11.5px] leading-snug text-muted">
+          You haven&rsquo;t confirmed your Config invite, so your card has no badge.{" "}
+          <Link
+            href="/welcome?edit=1"
+            className="font-medium text-paper underline decoration-line underline-offset-2 transition-colors hover:decoration-accent"
+          >
+            Confirm it
+          </Link>
+        </p>
+      )}
+
       {missing.length > 0 && (
         <p className="mt-3 text-[11.5px] leading-snug text-muted">
           Add{" "}

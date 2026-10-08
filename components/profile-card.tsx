@@ -3,6 +3,7 @@
 import { Avatar } from "@/components/avatar";
 import { ConnectLink } from "@/components/connect-link";
 import { InterestButton, InterestCount } from "@/components/interest-button";
+import { InviteBadge } from "@/components/invite-badge";
 import { StatusBadge } from "@/components/status-badge";
 import { LinkedInMark } from "@/components/icons";
 import type { ProfileCard as Card } from "@/lib/types";
@@ -60,6 +61,10 @@ export function ProfileCard({
       <h3 className="mt-1 text-[13.5px] leading-tight font-semibold tracking-[-0.01em] text-paper clamp-2">
         {card.full_name}
       </h3>
+
+      <div className="mt-1 empty:hidden">
+        <InviteBadge card={card} />
+      </div>
 
       {card.headline && (
         <p className="mt-1 text-[11.5px] leading-snug text-muted clamp-2">{card.headline}</p>

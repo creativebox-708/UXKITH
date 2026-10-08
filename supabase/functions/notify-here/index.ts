@@ -83,10 +83,10 @@ Deno.serve(async (req) => {
 
   const { data: me } = await admin
     .from("profiles")
-    .select("full_name, is_here, has_invite")
+    .select("full_name, is_here")
     .eq("id", user.id)
     .maybeSingle();
-  if (!me?.is_here || !me.has_invite) return json({ skipped: "not_here" });
+  if (!me?.is_here) return json({ skipped: "not_here" });
 
   const { data: matches } = await admin
     .from("matches")

@@ -24,12 +24,13 @@ export async function getViewer(): Promise<Viewer | null> {
 }
 
 /**
- * Gate for every signed-in page: you must be signed in, you must have answered
- * the invite question, and the answer must have been yes.
+ * Gate for every signed-in page. Signing in is the whole of it: the invite
+ * question used to decide whether you existed to anybody, which left people
+ * who abandoned /welcome stuck outside and invisible. Confirming an invite is
+ * now a badge you are asked for from inside the app, not a turnstile.
  */
 export async function requireAttendee(): Promise<Viewer> {
   const viewer = await getViewer();
   if (!viewer) redirect("/");
-  if (!viewer.profile.onboarded_at || !viewer.profile.has_invite) redirect("/welcome");
   return viewer;
 }

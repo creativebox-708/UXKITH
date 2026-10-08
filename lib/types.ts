@@ -27,6 +27,8 @@ export type ProfileCard = {
   they_are_interested: boolean;
   match_id: string | null;
   match_active: boolean;
+  /** They answered yes to the Config invite question. */
+  invite_confirmed: boolean;
 };
 
 export function toCard(row: RawCard): ProfileCard {
@@ -45,6 +47,7 @@ export function toCard(row: RawCard): ProfileCard {
     they_are_interested: row.they_are_interested ?? false,
     match_id: row.match_id,
     match_active: row.match_active ?? false,
+    invite_confirmed: row.invite_confirmed ?? false,
   };
 }
 

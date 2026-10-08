@@ -270,6 +270,7 @@ export type Database = {
         they_are_interested: boolean | null;
         match_id: string | null;
         match_active: boolean | null;
+        invite_confirmed: boolean | null;
       };
     };
   };

@@ -75,9 +75,9 @@ export async function completeWelcome(
 
   if (error) return { error: "Could not save that. Try again." };
 
+  // Either answer lets you in now; the answer only drives the badge.
   revalidatePath("/home");
-  if (hasInvite) redirect("/home");
-  redirect("/welcome?listed=no");
+  redirect("/home");
 }
 
 /** Lets someone fix their headline / company / city later, from /settings. */
