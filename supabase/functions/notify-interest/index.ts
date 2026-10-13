@@ -1,4 +1,5 @@
 import { createClient } from "jsr:@supabase/supabase-js@2";
+import { SMTPClient } from "https://deno.land/x/denomailer@1.6.0/mod.ts";
 
 /**
  * "Someone at Config wants to meet you."
@@ -11,8 +12,85 @@ import { createClient } from "jsr:@supabase/supabase-js@2";
 const SUPABASE_URL = Deno.env.get("SUPABASE_URL")!;
 const SERVICE_ROLE_KEY = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
 const RESEND_API_KEY = Deno.env.get("RESEND_API_KEY");
-const EMAIL_FROM = Deno.env.get("EMAIL_FROM") ?? "UXKITH <onboarding@resend.dev>";
 const APP_URL = Deno.env.get("APP_URL") ?? "https://uxkith.vercel.app";
+
+const SMTP_HOST = Deno.env.get("SMTP_HOST") ?? "smtp.gmail.com";
+const SMTP_PORT = Number(Deno.env.get("SMTP_PORT") ?? "465");
+const SMTP_USER = Deno.env.get("SMTP_USER");
+const SMTP_PASSWORD = Deno.env.get("SMTP_PASSWORD");
+
+/** Gmail insists the sender is the account that authenticated. */
+const FROM = Deno.env.get("EMAIL_FROM") ?? (SMTP_USER ? `UXKITH <${SMTP_USER}>` : null);
+
+type Outcome = { ok: boolean; via: string; error?: string };
+
+/**
+ * SMTP first, Resend second.
+ *
+ * SMTP needs nothing but a mailbox that already exists and an app password,
+ * which is why it leads: Resend refuses to deliver to anyone but the account
+ * owner until a domain is verified, and there is no domain. Both are optional,
+ * and with neither configured this logs and skips rather than failing the tap
+ * that triggered it.
+ */
+async function sendEmail(mail: {
+  to: string;
+  subject: string;
+  html: string;
+  text: string;
+}): Promise<Outcome> {
+  if (!FROM) return { ok: false, via: "none", error: "no sender configured" };
+
+  if (SMTP_USER && SMTP_PASSWORD) {
+    const client = new SMTPClient({
+      connection: {
+        hostname: SMTP_HOST,
+        port: SMTP_PORT,
+        tls: true,
+        auth: { username: SMTP_USER, password: SMTP_PASSWORD },
+      },
+    });
+    try {
+      await client.send({
+        from: FROM,
+        to: mail.to,
+        subject: mail.subject,
+        content: mail.text,
+        html: mail.html,
+      });
+      return { ok: true, via: "smtp" };
+    } catch (error) {
+      return { ok: false, via: "smtp", error: String(error) };
+    } finally {
+      try {
+        await client.close();
+      } catch {
+        // Already sent by this point; a noisy close is not a failure.
+      }
+    }
+  }
+
+  if (RESEND_API_KEY) {
+    const response = await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${RESEND_API_KEY}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        from: FROM,
+        to: [mail.to],
+        subject: mail.subject,
+        html: mail.html,
+        text: mail.text,
+      }),
+    });
+    if (response.ok) return { ok: true, via: "resend" };
+    return { ok: false, via: "resend", error: `${response.status} ${await response.text()}` };
+  }
+
+  return { ok: false, via: "none", error: "no transport configured" };
+}
 
 const admin = createClient(SUPABASE_URL, SERVICE_ROLE_KEY, {
   auth: { persistSession: false, autoRefreshToken: false },
@@ -132,32 +210,19 @@ Deno.serve(async (req) => {
   const email = account?.user?.email;
   if (!email) return json({ skipped: "no_email" });
 
-  if (!RESEND_API_KEY) {
-    console.warn("RESEND_API_KEY is not set; skipping the email for", toUser);
-    return json({ skipped: "no_resend_key" });
-  }
-
   const subtitle = [tagger.headline, tagger.company].filter(Boolean).join(" · ");
 
-  const response = await fetch("https://api.resend.com/emails", {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${RESEND_API_KEY}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      from: EMAIL_FROM,
-      to: [email],
-      subject: "Someone at Config wants to meet you",
-      html: template({ name: tagger.full_name, subtitle }),
-      text: `${tagger.full_name}${subtitle ? ` (${subtitle})` : ""} tapped "Interested to meet" on your card at Config India 2026.\n\nIf you want to meet them too, tap it back and a chat opens between you: ${APP_URL}/home\n\nThis is a signal, not an obligation.`,
-    }),
+  const result = await sendEmail({
+    to: email,
+    subject: "Someone at Config wants to meet you",
+    html: template({ name: tagger.full_name, subtitle }),
+    text: `${tagger.full_name}${subtitle ? ` (${subtitle})` : ""} tapped "Interested to meet" on your card at Config India 2026.\n\nIf you want to meet them too, tap it back and a chat opens between you: ${APP_URL}/home\n\nThis is a signal, not an obligation.`,
   });
 
-  if (!response.ok) {
-    console.error("resend failed", response.status, await response.text());
-    return json({ error: "send_failed" }, 502);
+  if (!result.ok) {
+    console.error("send failed via", result.via, result.error);
+    return json({ error: "send_failed", via: result.via }, 502);
   }
 
-  return json({ sent: true });
+  return json({ sent: true, via: result.via });
 });
