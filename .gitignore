@@ -16,3 +16,7 @@ next-env.d.ts
 # Local database snapshots. Contain real names and email addresses —
 # never commit these to a public repository.
 backups/
+
+# Working files derived from live user data — names, profile links.
+# Never commit: the repository is public.
+private/
