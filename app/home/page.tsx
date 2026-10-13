@@ -44,7 +44,7 @@ export default async function HomePage() {
         myList: myList.data ?? 0,
       }}
       notifications={toNotifications(notes.data)}
-      eventDay={eventDayEnabled}
+      eventDay={eventDayEnabled()}
       isHere={profile.is_here}
       showInboundBanner
     >

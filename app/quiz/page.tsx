@@ -38,7 +38,7 @@ export default async function QuizPage() {
         myList: myList.data ?? 0,
       }}
       notifications={toNotifications(notes.data)}
-      eventDay={eventDayEnabled}
+      eventDay={eventDayEnabled()}
       isHere={profile.is_here}
     >
       <main className="mx-auto w-full max-w-lg px-4 pt-6 pb-[calc(var(--footer-h)+2.5rem)]">
