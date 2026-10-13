@@ -122,6 +122,12 @@ try {
     console.log(`   "I'm here" button present: ${here ? "YES — flag is live" : "NO — flag not taking effect"}`);
   }
 
+  // Stop here when asked. The arrival test below emails a real inbox, and
+  // re-running the flag check should not cost anyone another message.
+  if (process.argv.includes("--flag-only")) {
+    throw new Error("--flag-only: stopping before the email test");
+  }
+
   console.log("\n--- 2. does the arrival email send? ---");
   await api("/rest/v1/interests", {
     method: "POST",
