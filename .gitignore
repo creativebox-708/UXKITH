@@ -20,3 +20,6 @@ backups/
 # Working files derived from live user data — names, profile links.
 # Never commit: the repository is public.
 private/
+
+# Supabase CLI scratch state — project refs, pooler URLs, CLI tokens.
+supabase/.temp/
