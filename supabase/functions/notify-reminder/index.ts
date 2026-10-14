@@ -166,13 +166,24 @@ function smtp() {
 Deno.serve(async (req) => {
   if (req.method !== "POST") return json({ error: "method_not_allowed" }, 405);
 
-  const token = req.headers.get("Authorization")?.replace(/^Bearer\s+/i, "");
-  if (!token) return json({ error: "forbidden" }, 403);
-  const caller = createClient(SUPABASE_URL, token, {
-    auth: { persistSession: false, autoRefreshToken: false },
-  });
-  const probe = await caller.auth.admin.listUsers({ page: 1, perPage: 1 });
-  if (probe.error) return json({ error: "forbidden", detail: "not an admin key" }, 403);
+  // Two ways in: an admin key (dashboard), or a single-use ops token minted in
+  // the database. The token is deleted as it is checked, so it can send once.
+  const opsToken = req.headers.get("x-ops-token");
+  if (opsToken) {
+    const { data: ok } = await admin.rpc("consume_ops_token", {
+      p_token: opsToken,
+      p_purpose: "reminder",
+    });
+    if (!ok) return json({ error: "forbidden", detail: "token used or invalid" }, 403);
+  } else {
+    const token = req.headers.get("Authorization")?.replace(/^Bearer\s+/i, "");
+    if (!token) return json({ error: "forbidden" }, 403);
+    const caller = createClient(SUPABASE_URL, token, {
+      auth: { persistSession: false, autoRefreshToken: false },
+    });
+    const probe = await caller.auth.admin.listUsers({ page: 1, perPage: 1 });
+    if (probe.error) return json({ error: "forbidden", detail: "not an admin key" }, 403);
+  }
 
   let confirm = false;
   let sampleTo: string | undefined;

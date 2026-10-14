@@ -5,3 +5,6 @@ verify_jwt = true
 
 [functions.notify-here]
 verify_jwt = true
+
+[functions.notify-reminder]
+verify_jwt = false
