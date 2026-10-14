@@ -101,6 +101,16 @@ function template(p: Personal) {
           <p style="margin:12px 0 0;font-size:15px;line-height:1.6;color:#45414f;">${statusLine(p)}</p>
         </td></tr>
         <tr><td style="padding:20px 28px 0;">
+          <table role="presentation" cellpadding="0" cellspacing="0" style="width:100%;background:#fff4ef;border:1px solid #ffd6c8;border-radius:12px;">
+            <tr><td style="padding:14px 18px;font-size:14px;line-height:1.7;color:#45414f;">
+              <span style="display:inline-block;margin-bottom:6px;font-size:11px;letter-spacing:1.2px;font-weight:700;color:#ff5c38;text-transform:uppercase;">New &middot; Email notifications are live &#128236;</span><br>
+              &bull; Someone taps &ldquo;Interested to meet&rdquo; on you? You get an email.<br>
+              &bull; A match taps &ldquo;I&rsquo;m here&rdquo; tomorrow? You get an email with your chat link, so you can work out where to meet.<br>
+              <span style="color:#8b8598;">Check your spam folder once and mark UXKITH as &ldquo;Not spam&rdquo;, so tomorrow&rsquo;s alerts reach you.</span>
+            </td></tr>
+          </table>
+        </td></tr>
+        <tr><td style="padding:12px 28px 0;">
           <table role="presentation" cellpadding="0" cellspacing="0" style="width:100%;background:#faf8f5;border:1px solid #eee9e1;border-radius:12px;">
             <tr><td style="padding:14px 18px;font-size:14px;line-height:1.7;color:#45414f;">
               <strong style="color:#15131a;">Tonight:</strong> tag the people you want to find, and tap back on anyone waiting.<br>
@@ -128,6 +138,11 @@ function textFor(p: Personal) {
 India's first Config is on Thursday 15 October at BIEC, Bengaluru.
 
 ${statusText(p)}
+
+NEW: Email notifications are live.
+- Someone taps "Interested to meet" on you? You get an email.
+- A match taps "I'm here" tomorrow? You get an email with your chat link, so you can work out where to meet.
+Check your spam folder once and mark UXKITH as "Not spam", so tomorrow's alerts reach you.
 
 Tonight: tag the people you want to find, and tap back on anyone waiting.
 Tomorrow: tap "I'm here" when you arrive, so your matches know to look for you.
