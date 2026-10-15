@@ -119,8 +119,10 @@ export function AppShell({
             </div>
 
             <div className="flex shrink-0 items-center gap-1.5">
+              {/* Top row on sm+ only. At phone width the icons already fill
+                  the row, so the badge moves down beside the count. */}
               {eventDay && here && (
-                <span className="flex h-8 items-center gap-1.5 rounded-full border border-mutual/35 bg-mutual/12 px-2.5 text-[11.5px] font-semibold text-mutual">
+                <span className="hidden h-8 items-center gap-1.5 rounded-full border border-mutual/35 bg-mutual/12 px-2.5 text-[11.5px] font-semibold text-mutual sm:flex">
                   <HereDot />
                   Here
                 </span>
@@ -182,6 +184,12 @@ export function AppShell({
               >
                 I&rsquo;m here <span aria-hidden>&#128075;</span>
               </button>
+            )}
+            {eventDay && here && (
+              <span className="flex h-7 shrink-0 items-center gap-1.5 rounded-full border border-mutual/35 bg-mutual/12 px-2.5 text-[11px] font-semibold text-mutual">
+                <HereDot />
+                Here
+              </span>
             )}
           </div>
         </div>
