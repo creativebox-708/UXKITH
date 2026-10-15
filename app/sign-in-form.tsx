@@ -92,6 +92,13 @@ export function SignInForm() {
         {busy ? "Taking you to LinkedIn…" : "Continue with LinkedIn"}
       </button>
 
+      {/* LinkedIn's sign-in is a web page, so a browser that has never logged
+          in to LinkedIn asks for the password even when the app is installed.
+          Saying so up front stops people reading it as something broken. */}
+      <p className="-mt-1.5 text-center text-[11.5px] leading-snug text-balance text-muted-dim">
+        First time? LinkedIn may ask you to log in once in your browser. That&rsquo;s normal.
+      </p>
+
       {/* Three promises, each doing a job: what we never take, what this is
           for, and what it is not. The emoji are decoration, so they are hidden
           from screen readers and the sentences carry the meaning. */}
